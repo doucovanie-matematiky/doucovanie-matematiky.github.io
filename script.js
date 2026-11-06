@@ -135,6 +135,7 @@
   function showStep(step) {
     $$("[data-step]", modal).forEach((el) => (el.hidden = el.dataset.step !== step));
     modal.dataset.current = step;
+    modal.scrollTop = 0;
     dialog.scrollTop = 0;
   }
 
@@ -143,7 +144,10 @@
     showStep(step);
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
+    document.documentElement.classList.add("modal-open");
     document.body.classList.add("modal-open");
+    modal.scrollTop = 0;
+    dialog.scrollTop = 0;
     setTimeout(() => {
       const target = step === "pay" ? fields.email : $(`[data-step="${step}"] .invite__join`, modal);
       target && target.focus({ preventScroll: true });
@@ -154,9 +158,15 @@
     if (busy) return;
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
+    document.documentElement.classList.remove("modal-open");
     document.body.classList.remove("modal-open");
     lastFocus && lastFocus.focus && lastFocus.focus({ preventScroll: true });
   }
+
+  modal.addEventListener("scroll", () => {
+    if (modal.scrollTop !== 0) modal.scrollTop = 0;
+    if (modal.scrollLeft !== 0) modal.scrollLeft = 0;
+  });
 
   function setPlan(planId, isUpgrade = false) {
     isUpgradeMode = isUpgrade;
