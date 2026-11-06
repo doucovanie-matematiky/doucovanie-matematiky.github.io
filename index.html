@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Piatková matika — doučovanie matematiky každý piatok</title>
+  <meta name="description" content="Piatkové online doučovanie matematiky na Discorde. Doučovanie za 7 € alebo Komplet s poznámkami a záznamami za 10 €. Prístup hneď po zaplatení." />
+  <meta name="keywords" content="doučovanie matematiky, matematika online, piatková matika, doučovanie matematika discord, príprava na maturitu matematika, doučovanie pre stredoškolákov" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Piatková matika" />
+  <meta name="theme-color" content="#4f46e5" />
+
+  <!-- Open Graph / Facebook / Discord link preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Piatková matika — Doučovanie matematiky každý piatok" />
+  <meta property="og:description" content="Piatkové online doučovanie matematiky na Discorde. Prístup hneď po zaplatení za 7 € alebo Komplet so záznamami za 10 €." />
+  <meta property="og:locale" content="sk_SK" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Piatková matika — Doučovanie matematiky každý piatok" />
+  <meta name="twitter:description" content="Piatkové online doučovanie matematiky na Discorde. Prístup hneď po zaplatení." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%234f46e5'/><text x='50' y='72' font-size='64' text-anchor='middle' fill='white' font-family='Georgia'>π</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- SVG ikony -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M8 11V8a4 4 0 018 0v3" fill="none" stroke="currentColor" stroke-width="2.2"/></symbol>
+    <symbol id="i-hash" viewBox="0 0 24 24"><path d="M9 4L7 20M17 4l-2 16M4 9h16M3.5 15h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-speaker" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 010 6M18 6.5a7.5 7.5 0 010 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16 8V6.5A2.5 2.5 0 0013.5 4h-7A2.5 2.5 0 004 6.5v7A2.5 2.5 0 006.5 16H8" fill="none" stroke="currentColor" stroke-width="2.2"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M3.5 10h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M2.5 10h19M6 15h4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-pointer" viewBox="0 0 24 24"><path d="M5 4h8v8M13 4L4 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="9" y="10" width="11" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.2"/></symbol>
+    <symbol id="i-notes" viewBox="0 0 24 24"><path d="M6 3.5h9l4 4V20a.5.5 0 01-.5.5h-12A.5.5 0 016 20z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M9.5 11h6M9.5 15h6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="3.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M10 9v6l5-3z" fill="currentColor"/></symbol>
+    <symbol id="i-discord" viewBox="0 0 24 24"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></symbol>
+  </svg>
+
+  <!-- Demo pruh -->
+  <div class="demobar" role="note">
+    <span class="demobar__tag">DEMO</span>
+    Platby sú len simulované — nič sa nestrhne. Vyskúšaj si celý proces až po pozvánku na Discord.
+  </div>
+
+  <!-- Navigácia -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#top" class="logo" aria-label="Piatková matika — domov">
+        <span class="logo__mark">π</span>
+        <span class="logo__text">Piatková<b>matika</b></span>
+      </a>
+      <nav class="nav__links" aria-label="Hlavná navigácia">
+        <a href="#ako">Ako to funguje</a>
+        <a href="#cennik">Cenník</a>
+        <a href="#faq">Otázky</a>
+      </nav>
+      <div class="nav__actions">
+        <button class="btn btn--sm btn--discord-soft" id="navAccess" hidden>
+          <svg class="ico"><use href="#i-discord"/></svg> Môj prístup
+        </button>
+        <a href="#cennik" class="btn btn--sm btn--primary" id="navCta">Získať prístup</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__math" aria-hidden="true">
+        <span style="--x:4%;--y:14%;--r:-10deg;--d:0s">∫ f(x) dx</span>
+        <span style="--x:44%;--y:6%;--r:6deg;--d:-3s">π ≈ 3,14</span>
+        <span style="--x:2%;--y:78%;--r:8deg;--d:-6s">a² + b² = c²</span>
+        <span style="--x:88%;--y:10%;--r:-6deg;--d:-2s">√x</span>
+        <span style="--x:92%;--y:82%;--r:12deg;--d:-4s">Σ</span>
+        <span style="--x:50%;--y:90%;--r:-4deg;--d:-8s">sin²α + cos²α = 1</span>
+      </div>
+
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <div class="chip reveal">
+            <span class="chip__dot"></span>
+            <svg class="ico"><use href="#i-cal"/></svg>
+            Najbližšie doučovanie: <strong id="nextFriday">tento piatok</strong>
+          </div>
+
+          <h1 class="hero__title reveal">
+            Matika v <span class="hl">piatok</span>.<br />
+            Pokoj v&nbsp;pondelok.
+          </h1>
+
+          <p class="hero__lead reveal">
+            Piatkové online doučovanie matematiky na&nbsp;Discorde. Vyber si balík, zaplať
+            a&nbsp;pozvánku na&nbsp;server dostaneš <strong>hneď po&nbsp;zaplatení</strong>.
+          </p>
+
+          <div class="hero__ctas reveal">
+            <a href="#cennik" class="btn btn--primary btn--lg">
+              Vybrať balík <svg class="ico"><use href="#i-arrow"/></svg>
+            </a>
+            <a href="#ako" class="btn btn--ghost btn--lg">Ako to funguje</a>
+          </div>
+
+          <ul class="hero__facts reveal">
+            <li><b>7&nbsp;€</b><span>doučovanie</span></li>
+            <li><b>10&nbsp;€</b><span>doučovanie + materiály</span></li>
+            <li><b><svg class="ico ico--discord"><use href="#i-discord"/></svg> Discord</b><span>prístup okamžite</span></li>
+          </ul>
+        </div>
+
+        <!-- Discord mock -->
+        <div class="hero__visual reveal">
+          <p class="hand hand--top">takto to vyzerá na serveri ↓</p>
+
+          <div class="dmock" id="dmock" data-plan="basic">
+            <div class="dmock__bar">
+              <i></i><i></i><i></i>
+              <span>Piatková matika — Discord</span>
+            </div>
+            <div class="dmock__body">
+              <aside class="dmock__side">
+                <div class="dmock__server">
+                  <span class="dmock__srv-ico">π</span>
+                  <b>Piatková matika</b>
+                </div>
+
+                <p class="dmock__cat">Doučovanie</p>
+                <div class="ch ch--live">
+                  <svg class="ico"><use href="#i-speaker"/></svg>
+                  <span>doučovanie</span>
+                  <em class="live">LIVE</em>
+                </div>
+
+                <p class="dmock__cat">Materiály <span class="dmock__tier">Komplet</span></p>
+                <div class="ch ch--locked">
+                  <svg class="ico"><use href="#i-hash"/></svg>
+                  <span>poznámky</span>
+                  <svg class="ico ch__lock"><use href="#i-lock"/></svg>
+                </div>
+                <div class="ch ch--locked">
+                  <svg class="ico"><use href="#i-hash"/></svg>
+                  <span>záznamy</span>
+                  <svg class="ico ch__lock"><use href="#i-lock"/></svg>
+                </div>
+              </aside>
+
+              <div class="dmock__main">
+                <div class="msg">
+                  <span class="msg__ava">π</span>
+                  <div>
+                    <p class="msg__name">Piatková matika <span class="msg__badge">DOUČOVANIE</span></p>
+                    <p class="msg__text">Ideme na to! Dnes riešime kvadratické rovnice 📐</p>
+                  </div>
+                </div>
+                <div class="board">
+                  <p class="board__l" style="--i:0">x² − 5x + 6 = 0</p>
+                  <p class="board__l" style="--i:1">D = 25 − 24 = 1</p>
+                  <p class="board__l" style="--i:2">x₁ = 3 &nbsp; x₂ = 2 <span class="board__ok">✓</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mock-toggle" role="group" aria-label="Porovnať balíky">
+            <span>Prepni balík:</span>
+            <button type="button" data-mock-plan="basic" aria-pressed="true">Doučovanie · 7&nbsp;€</button>
+            <button type="button" data-mock-plan="full" aria-pressed="false">Komplet · 10&nbsp;€</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AKO TO FUNGUJE -->
+    <section class="section" id="ako">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Ako to funguje</p>
+          <h2>Tri kroky a&nbsp;si na&nbsp;doučovaní</h2>
+        </header>
+
+        <ol class="steps">
+          <li class="step-card reveal">
+            <span class="step-card__num">1</span>
+            <span class="step-card__ico"><svg class="ico"><use href="#i-pointer"/></svg></span>
+            <h3>Vyber si balík</h3>
+            <p>Len piatkové doučovanie za <b>7&nbsp;€</b>, alebo Komplet s&nbsp;poznámkami a&nbsp;záznamami za <b>10&nbsp;€</b>.</p>
+          </li>
+          <li class="step-card reveal">
+            <span class="step-card__num">2</span>
+            <span class="step-card__ico"><svg class="ico"><use href="#i-card"/></svg></span>
+            <h3>Zaplať online</h3>
+            <p>Rýchla platba kartou priamo na stránke. Celé to trvá pár sekúnd.</p>
+          </li>
+          <li class="step-card reveal">
+            <span class="step-card__num">3</span>
+            <span class="step-card__ico step-card__ico--discord"><svg class="ico"><use href="#i-discord"/></svg></span>
+            <h3>Pripoj sa na Discord</h3>
+            <p>Hneď po zaplatení sa ti zobrazí pozvánka na náš server. Klikneš a&nbsp;si dnu.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- CENNÍK -->
+    <section class="section section--pricing" id="cennik">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Cenník</p>
+          <h2>Vyber si, čo potrebuješ</h2>
+          <p class="section__sub">Oba balíky ti otvoria cestu na náš Discord server. Rozdiel je v&nbsp;tom, ku čomu tam budeš mať prístup.</p>
+        </header>
+
+        <div class="pricing">
+          <!-- Doučovanie -->
+          <article class="plan reveal">
+            <div class="plan__head">
+              <span class="plan__ico"><svg class="ico"><use href="#i-speaker"/></svg></span>
+              <h3>Doučovanie</h3>
+              <p>Pre tých, čo chcú prísť na piatkové doučovanie.</p>
+            </div>
+            <div class="plan__price">
+              <span class="plan__amount">7</span><span class="plan__cur">€</span>
+            </div>
+            <ul class="plan__list">
+              <li class="yes"><svg class="ico"><use href="#i-check"/></svg> Prístup na piatkové doučovanie</li>
+              <li class="yes"><svg class="ico"><use href="#i-check"/></svg> Pozvánka na Discord hneď po zaplatení</li>
+              <li class="no"><svg class="ico"><use href="#i-x"/></svg> Poznámky z doučovaní</li>
+              <li class="no"><svg class="ico"><use href="#i-x"/></svg> Záznamy z predošlých doučovaní</li>
+            </ul>
+            <button class="btn btn--ghost btn--lg btn--block" data-buy="basic">
+              Vybrať za 7&nbsp;€ <svg class="ico"><use href="#i-arrow"/></svg>
+            </button>
+          </article>
+
+          <!-- Komplet -->
+          <article class="plan plan--featured reveal">
+            <span class="plan__sticker">Odporúčame</span>
+            <div class="plan__head">
+              <span class="plan__ico"><svg class="ico"><use href="#i-notes"/></svg></span>
+              <h3>Komplet</h3>
+              <p>Doučovanie + všetky materiály na opakovanie.</p>
+            </div>
+            <div class="plan__price">
+              <span class="plan__amount">10</span><span class="plan__cur">€</span>
+            </div>
+            <ul class="plan__list">
+              <li class="yes"><svg class="ico"><use href="#i-check"/></svg> Prístup na piatkové doučovanie</li>
+              <li class="yes"><svg class="ico"><use href="#i-check"/></svg> Pozvánka na Discord hneď po zaplatení</li>
+              <li class="yes"><svg class="ico"><use href="#i-check"/></svg> <span><b>Poznámky</b> z doučovaní</span></li>
+              <li class="yes"><svg class="ico"><use href="#i-check"/></svg> <span><b>Záznamy</b> z predošlých doučovaní</span></li>
+            </ul>
+            <button class="btn btn--yellow btn--lg btn--block" data-buy="full">
+              Vybrať za 10&nbsp;€ <svg class="ico"><use href="#i-arrow"/></svg>
+            </button>
+            <p class="hand hand--plan">len o 3 € viac a máš aj všetky materiály!</p>
+          </article>
+        </div>
+
+        <ul class="trust reveal">
+          <li><svg class="ico"><use href="#i-lock"/></svg> Bezpečná platba kartou</li>
+          <li><svg class="ico"><use href="#i-discord"/></svg> Link na Discord okamžite</li>
+          <li><svg class="ico"><use href="#i-cal"/></svg> Doučovanie každý piatok</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container container--narrow">
+        <header class="section__head reveal">
+          <p class="eyebrow">Otázky</p>
+          <h2>Čo ťa môže zaujímať</h2>
+        </header>
+
+        <div class="faq">
+          <details class="reveal" open>
+            <summary>Ako dostanem prístup na doučovanie?</summary>
+            <p>Hneď po zaplatení sa ti na obrazovke zobrazí pozvánka na náš Discord server. Klikneš na&nbsp;ňu, pripojíš sa a&nbsp;si dnu. Žiadne čakanie.</p>
+          </details>
+          <details class="reveal">
+            <summary>Aký je rozdiel medzi balíkmi?</summary>
+            <p><b>Doučovanie (7&nbsp;€)</b> ti dá prístup na samotné piatkové doučovanie. <b>Komplet (10&nbsp;€)</b> obsahuje doučovanie a&nbsp;navyše poznámky a&nbsp;záznamy z&nbsp;predošlých doučovaní.</p>
+          </details>
+          <details class="reveal">
+            <summary>Potrebujem Discord?</summary>
+            <p>Áno. Discord je zadarmo a&nbsp;funguje v&nbsp;prehliadači, na počítači aj v&nbsp;mobile. Ak účet ešte nemáš, vytvoríš si ho pri pripájaní cez pozvánku.</p>
+          </details>
+          <details class="reveal">
+            <summary>Kedy doučovanie prebieha?</summary>
+            <p>Každý piatok. Všetky informácie k&nbsp;doučovaniu nájdeš priamo na Discord serveri.</p>
+          </details>
+          <details class="reveal">
+            <summary>Čo ak link na Discord stratím?</summary>
+            <p>Po zaplatení si ho kedykoľvek znova zobrazíš cez tlačidlo <b>„Môj prístup“</b> hore v&nbsp;menu.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Záverečná výzva -->
+    <section class="section section--cta">
+      <div class="container">
+        <div class="cta-box reveal">
+          <div>
+            <h2>Piatok je bližšie, než si myslíš.</h2>
+            <p>Zaplať, pripoj sa na Discord a&nbsp;uvidíme sa na doučovaní.</p>
+          </div>
+          <div class="cta-box__btns">
+            <button class="btn btn--yellow btn--lg" data-buy="full">Komplet · 10&nbsp;€</button>
+            <button class="btn btn--white btn--lg" data-buy="basic">Doučovanie · 7&nbsp;€</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a href="#top" class="logo logo--sm">
+        <span class="logo__mark">π</span>
+        <span class="logo__text">Piatková<b>matika</b></span>
+      </a>
+      <p>© <span id="year">2026</span> Piatková matika · Demo verzia stránky</p>
+      <button class="link-btn" id="resetDemo">Resetovať demo</button>
+    </div>
+  </footer>
+
+  <!-- ============ POKLADŇA (MODAL) ============ -->
+  <div class="modal" id="checkout" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+      <button class="modal__close" data-close aria-label="Zavrieť">
+        <svg class="ico"><use href="#i-x"/></svg>
+      </button>
+
+      <!-- KROK 1: platba -->
+      <div class="mstep" data-step="pay">
+        <div class="demo-pill"><span>DEMO</span> Platba je simulovaná — nič sa nestrhne</div>
+        <h2 id="checkoutTitle" class="mstep__title">Pokladňa</h2>
+
+        <div class="plan-switch" role="radiogroup" aria-label="Balík">
+          <label class="plan-opt">
+            <input type="radio" name="plan" value="basic" />
+            <span class="plan-opt__radio"></span>
+            <span class="plan-opt__txt"><b>Doučovanie</b><small>Piatkové doučovanie</small></span>
+            <em>7&nbsp;€</em>
+          </label>
+          <label class="plan-opt">
+            <input type="radio" name="plan" value="full" />
+            <span class="plan-opt__radio"></span>
+            <span class="plan-opt__txt"><b>Komplet</b><small>Doučovanie + poznámky a záznamy</small></span>
+            <em>10&nbsp;€</em>
+          </label>
+        </div>
+
+        <form id="payForm" novalidate>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" placeholder="ty@email.sk" autocomplete="email" />
+            <small class="field__err"></small>
+          </div>
+
+          <div class="field">
+            <label for="cardNumber">Číslo karty</label>
+            <div class="field__wrap">
+              <input type="text" id="cardNumber" inputmode="numeric" autocomplete="cc-number" placeholder="1234 1234 1234 1234" maxlength="19" />
+              <span class="card-brand" id="cardBrand" aria-hidden="true"></span>
+            </div>
+            <small class="field__err"></small>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="cardExp">Platnosť</label>
+              <input type="text" id="cardExp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/RR" maxlength="5" />
+              <small class="field__err"></small>
+            </div>
+            <div class="field">
+              <label for="cardCvc">CVC</label>
+              <input type="text" id="cardCvc" inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="3" />
+              <small class="field__err"></small>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="cardName">Meno na karte</label>
+            <input type="text" id="cardName" autocomplete="cc-name" placeholder="Meno Priezvisko" />
+            <small class="field__err"></small>
+          </div>
+
+          <button type="button" class="link-btn link-btn--fill" id="fillDemo">⚡ Vyplniť testovacie údaje</button>
+
+          <div class="summary">
+            <div class="summary__row"><span id="sumPlan">Balík Komplet</span><span id="sumPrice">10,00 €</span></div>
+            <div class="summary__row summary__row--total"><span>Spolu</span><span id="sumTotal">10,00 €</span></div>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--lg btn--block" id="payBtn">
+            <svg class="ico"><use href="#i-lock"/></svg>
+            <span id="payLabel">Zaplatiť 10,00 €</span>
+          </button>
+          <p class="secure">V ostrej verzii prebehne platba cez zabezpečenú platobnú bránu.</p>
+        </form>
+      </div>
+
+      <!-- KROK 2: spracovanie -->
+      <div class="mstep mstep--processing" data-step="processing" hidden>
+        <div class="loader" aria-hidden="true"><span>π</span></div>
+        <p class="processing__text" id="processingText" aria-live="polite">Spájame sa s bankou…</p>
+        <div class="processing__bar"><span></span></div>
+      </div>
+
+      <!-- KROK 3: úspech + link -->
+      <div class="mstep mstep--success" data-step="success" hidden>
+        <div class="success-check" aria-hidden="true">
+          <svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg>
+        </div>
+        <h2 class="mstep__title" id="successTitle">Platba prebehla úspešne!</h2>
+        <p class="mstep__sub">Vitaj na piatkovom doučovaní. Tu je tvoja pozvánka na Discord:</p>
+
+        <div class="ticket">
+          <div class="ticket__top">
+            <div><small>Balík</small><b id="tPlan">Komplet</b></div>
+            <div><small>Zaplatené</small><b id="tAmount">10,00 €</b></div>
+            <div><small>Objednávka</small><b id="tOrder">#PM-000000</b></div>
+          </div>
+
+          <div class="ticket__invite">
+            <p class="invite__label">Bol si pozvaný na server</p>
+            <div class="invite">
+              <span class="invite__ico">π</span>
+              <div class="invite__info">
+                <b>Piatková matika</b>
+                <span><i class="invite__dot"></i> Prístup: <strong id="tAccessLabel">Komplet</strong></span>
+              </div>
+              <a class="invite__join" id="joinBtn" href="#" target="_blank" rel="noopener">Pripojiť sa</a>
+            </div>
+
+            <div class="link-row">
+              <svg class="ico ico--discord"><use href="#i-discord"/></svg>
+              <code id="inviteLink"></code>
+              <button type="button" class="link-row__copy" id="copyLink">
+                <svg class="ico"><use href="#i-copy"/></svg><span>Kopírovať</span>
+              </button>
+            </div>
+          </div>
+
+          <ul class="ticket__access" id="tAccess"></ul>
+        </div>
+
+        <ol class="next-steps">
+          <li><span>1</span><p>Klikni na <b>Pripojiť sa</b> (alebo skopíruj link).</p></li>
+          <li><span>2</span><p>Prihlás sa na Discord, alebo si zadarmo vytvor účet.</p></li>
+          <li><span>3</span><p>V piatok sa vidíme na doučovaní! 🎉</p></li>
+        </ol>
+
+        <p class="mstep__hint">Link si kedykoľvek znova zobrazíš cez <b>„Môj prístup“</b> v menu.</p>
+        <button type="button" class="btn btn--ghost btn--block" data-close>Späť na stránku</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
