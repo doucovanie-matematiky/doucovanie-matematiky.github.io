@@ -797,15 +797,45 @@ input { font: inherit; }
 
 .summary {
   padding: 14px 16px;
-  margin-bottom: 18px;
+  margin-bottom: 4px;
   background: #fff;
   border: 2px dashed var(--line);
   border-radius: 14px;
 }
-.summary__row { display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--ink-2); }
-.summary__row--total { margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--line); color: var(--ink); font-weight: 800; font-size: 1.1rem; font-family: var(--f-head); }
+.summary__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: var(--ink-2);
+}
+.summary__row + .summary__row { margin-top: 4px; }
+.summary__row > span:first-child { min-width: 0; }
+.summary__row > span:last-child { flex: none; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.summary__row--total { margin-top: 8px !important; padding-top: 10px; border-top: 1px solid var(--line); color: var(--ink); font-weight: 800; font-size: 1.1rem; font-family: var(--f-head); }
+.summary__note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--green);
+}
+.summary__note .ico { width: 14px; height: 14px; flex: none; }
 
-.secure { text-align: center; margin-top: 12px; font-size: 0.78rem; color: var(--muted); }
+/* Tlačidlo platby je prilepené na spodku okna, aby bolo vždy viditeľné */
+.pay-bar {
+  position: sticky;
+  bottom: -30px;
+  z-index: 3;
+  margin: 0 -32px -30px;
+  padding: 14px 32px 22px;
+  background: linear-gradient(to bottom, rgba(251, 250, 246, 0), var(--paper) 14px);
+}
+
+.secure { text-align: center; margin-top: 10px; font-size: 0.78rem; color: var(--muted); }
 
 /* Processing */
 .mstep--processing { text-align: center; padding: 40px 0 30px; }
@@ -1018,20 +1048,15 @@ input { font: inherit; }
   margin-top: 2px;
 }
 
-.locked-badge {
+.locked-badge { display: none; }
+.upgrade-banner__lock {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 9px 12px;
-  margin-bottom: 16px;
-  background: #fff;
-  border: 1.5px dashed var(--ink);
-  border-radius: 10px;
-  font-size: 0.84rem;
-  color: var(--ink-2);
+  gap: 6px;
+  margin-top: 6px !important;
+  font-weight: 600;
 }
-.locked-badge .ico { color: var(--primary); }
-.locked-badge b { color: var(--ink); }
+.upgrade-banner__lock .ico { width: 14px; height: 14px; flex: none; }
 
 /* Ticket upgrade CTA box */
 .ticket__upgrade-box {
@@ -1168,6 +1193,7 @@ input { font: inherit; }
     box-shadow: 0 -6px 0 var(--ink);
     padding: 28px 20px 24px;
   }
+  .pay-bar { bottom: -24px; margin: 0 -20px -24px; padding: 12px 20px 18px; }
   .ticket__top { grid-template-columns: 1fr 1fr; }
   .ticket__top div:last-child { grid-column: 1 / -1; }
   .invite { flex-wrap: wrap; }

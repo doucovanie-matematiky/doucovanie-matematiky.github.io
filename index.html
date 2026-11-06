@@ -367,13 +367,9 @@
           <div class="upgrade-banner__icon">⚡</div>
           <div>
             <b>Doplatok na balík Komplet</b>
-            <p>Máš zaplatené Doučovanie (7&nbsp;€). Za <b>jednorazový doplatok 3,00&nbsp;€</b> získaš okamžitý prístup ku všetkým poznámkam a záznamom.</p>
+            <p>Máš zaplatené Doučovanie (7&nbsp;€). Doplatíš len <b>3&nbsp;€</b> a&nbsp;získaš aj poznámky a&nbsp;záznamy.</p>
+            <p class="upgrade-banner__lock"><svg class="ico"><use href="#i-lock"/></svg> Balík je pevne nastavený na Komplet a&nbsp;nedá sa zmeniť.</p>
           </div>
-        </div>
-
-        <div class="locked-badge" id="lockedUpgradeBadge" hidden>
-          <svg class="ico"><use href="#i-lock"/></svg>
-          <span>Balík: <b>Komplet (Doplatok 3,00&nbsp;€)</b> — voľba je uzamknutá</span>
         </div>
 
         <div class="plan-switch" id="planSwitch" role="radiogroup" aria-label="Balík">
@@ -430,16 +426,18 @@
 
           <div class="summary">
             <div class="summary__row"><span id="sumPlan">Balík Komplet</span><span id="sumPrice">10,00 €</span></div>
-            <div class="summary__row" id="sumPrevRow" hidden><span>Pôvodne uhradené (Doučovanie)</span><span id="sumPrevPrice">-7,00 €</span></div>
-            <div class="summary__row"><span>Typ platby</span><span class="badge-onetime">Jednorazovo (žiadne predplatné)</span></div>
-            <div class="summary__row summary__row--total"><span id="sumTotalLabel">Spolu k úhrade</span><span id="sumTotal">10,00 €</span></div>
+            <div class="summary__row" id="sumPrevRow" hidden><span>Už zaplatené</span><span id="sumPrevPrice">−7,00 €</span></div>
+            <div class="summary__row summary__row--total"><span id="sumTotalLabel">Spolu</span><span id="sumTotal">10,00 €</span></div>
+            <p class="summary__note"><svg class="ico"><use href="#i-check"/></svg> Jednorazová platba · žiadne predplatné</p>
           </div>
 
-          <button type="submit" class="btn btn--primary btn--lg btn--block" id="payBtn">
-            <svg class="ico"><use href="#i-lock"/></svg>
-            <span id="payLabel">Zaplatiť 10,00 €</span>
-          </button>
-          <p class="secure">V ostrej verzii prebehne platba cez zabezpečenú platobnú bránu. Jednorazová platba — žiadne mesačné predplatné.</p>
+          <div class="pay-bar">
+            <button type="submit" class="btn btn--primary btn--lg btn--block" id="payBtn">
+              <svg class="ico"><use href="#i-lock"/></svg>
+              <span id="payLabel">Zaplatiť 10,00 €</span>
+            </button>
+            <p class="secure">V ostrej verzii prebehne platba cez zabezpečenú platobnú bránu.</p>
+          </div>
         </form>
       </div>
 

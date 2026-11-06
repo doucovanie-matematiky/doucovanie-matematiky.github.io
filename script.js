@@ -163,7 +163,6 @@
     currentPlan = isUpgrade ? "full" : planId;
 
     const upgradeBanner = $("#upgradeBanner");
-    const lockedBadge = $("#lockedUpgradeBadge");
     const planSwitch = $("#planSwitch");
     const sumPrevRow = $("#sumPrevRow");
 
@@ -171,21 +170,19 @@
       // Režim doplatku: balík je fixne Komplet a voľba sa nedá zmeniť
       $("#checkoutTitle").textContent = "Doplatok na Komplet";
       upgradeBanner.hidden = false;
-      lockedBadge.hidden = false;
       planSwitch.hidden = true;
       sumPrevRow.hidden = false;
 
-      $("#sumPlan").textContent = "Cieľový balík Komplet";
+      $("#sumPlan").textContent = "Balík Komplet";
       $("#sumPrice").textContent = fmtPrice(CONFIG.plans.full.price);
-      $("#sumPrevPrice").textContent = `-${fmtPrice(CONFIG.plans.basic.price)}`;
-      $("#sumTotalLabel").textContent = "Doplatok k úhrade (jednorazovo)";
+      $("#sumPrevPrice").textContent = `\u2212${fmtPrice(CONFIG.plans.basic.price)}`;
+      $("#sumTotalLabel").textContent = "Doplatok";
       $("#sumTotal").textContent = fmtPrice(CONFIG.upgradePrice);
-      $("#payLabel").textContent = `Doplatiť ${fmtPrice(CONFIG.upgradePrice)} (jednorazovo)`;
+      $("#payLabel").textContent = `Doplatiť ${fmtPrice(CONFIG.upgradePrice)}`;
     } else {
       // Štandardná jednorazová platba za vybraný balík
       $("#checkoutTitle").textContent = "Pokladňa";
       upgradeBanner.hidden = true;
-      lockedBadge.hidden = true;
       planSwitch.hidden = false;
       sumPrevRow.hidden = true;
 
@@ -193,9 +190,9 @@
       $$('input[name="plan"]', modal).forEach((r) => (r.checked = r.value === planId));
       $("#sumPlan").textContent = `Balík ${plan.name}`;
       $("#sumPrice").textContent = fmtPrice(plan.price);
-      $("#sumTotalLabel").textContent = "Spolu (jednorazová platba)";
+      $("#sumTotalLabel").textContent = "Spolu";
       $("#sumTotal").textContent = fmtPrice(plan.price);
-      $("#payLabel").textContent = `Zaplatiť ${fmtPrice(plan.price)} (jednorazovo)`;
+      $("#payLabel").textContent = `Zaplatiť ${fmtPrice(plan.price)}`;
     }
   }
 
