@@ -942,9 +942,140 @@ input { font: inherit; }
 .ticket__access .no .ico { background: var(--paper-2); color: #b5b2c4; }
 .ticket__access .upsell {
   margin-left: auto;
-  font-size: 0.78rem; font-weight: 700;
+  font-size: 0.8rem; font-weight: 700;
   color: var(--primary);
-  text-decoration: underline; text-underline-offset: 3px;
+  background: var(--primary-soft);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(79, 70, 229, 0.2);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.ticket__access .upsell:hover {
+  background: #ded9fd;
+  transform: translateY(-1px);
+}
+
+/* Pricing period & badge */
+.plan__price-wrap { margin: 26px 0 22px; }
+.plan__price-wrap .plan__price { margin: 0; }
+.plan__period {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+.plan--featured .plan__period { color: #ffe685; }
+
+.badge-onetime {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--green-soft);
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* Upgrade Banner in Checkout */
+.upgrade-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  background: #fef9c3;
+  border: 2px solid var(--yellow-2);
+  border-radius: 14px;
+  box-shadow: var(--pop-sm);
+  animation: stepIn 0.3s var(--ease);
+}
+.upgrade-banner__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--yellow);
+  border: var(--border);
+  font-size: 1.1rem;
+}
+.upgrade-banner b {
+  display: block;
+  font-family: var(--f-head);
+  font-size: 0.98rem;
+  color: #713f12;
+}
+.upgrade-banner p {
+  color: #854d0e;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
+.locked-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  margin-bottom: 16px;
+  background: #fff;
+  border: 1.5px dashed var(--ink);
+  border-radius: 10px;
+  font-size: 0.84rem;
+  color: var(--ink-2);
+}
+.locked-badge .ico { color: var(--primary); }
+.locked-badge b { color: var(--ink); }
+
+/* Ticket upgrade CTA box */
+.ticket__upgrade-box {
+  margin: 0 16px 16px;
+  padding: 14px 16px;
+  background: #fbf7ee;
+  border: 2px dashed #d5c89e;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.ticket__upgrade-text { flex: 1; min-width: 200px; }
+.ticket__upgrade-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: var(--yellow);
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.ticket__upgrade-text b {
+  display: block;
+  font-family: var(--f-head);
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+.ticket__upgrade-text p {
+  font-size: 0.82rem;
+  color: var(--ink-2);
+  margin-top: 2px;
+}
+
+.btn-plan-owned {
+  background: var(--paper-2) !important;
+  color: var(--ink-2) !important;
+  border-color: #beb9a7 !important;
+  box-shadow: none !important;
 }
 
 .next-steps { display: grid; gap: 10px; margin-top: 22px; }

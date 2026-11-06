@@ -111,8 +111,8 @@
           </div>
 
           <ul class="hero__facts reveal">
-            <li><b>7&nbsp;€</b><span>doučovanie</span></li>
-            <li><b>10&nbsp;€</b><span>doučovanie + materiály</span></li>
+            <li><b>7&nbsp;€</b><span>doučovanie (jednorazovo)</span></li>
+            <li><b>10&nbsp;€</b><span>komplet s materiálmi (jednorazovo)</span></li>
             <li><b><svg class="ico ico--discord"><use href="#i-discord"/></svg> Discord</b><span>prístup okamžite</span></li>
           </ul>
         </div>
@@ -227,8 +227,11 @@
               <h3>Doučovanie</h3>
               <p>Pre tých, čo chcú prísť na piatkové doučovanie.</p>
             </div>
-            <div class="plan__price">
-              <span class="plan__amount">7</span><span class="plan__cur">€</span>
+            <div class="plan__price-wrap">
+              <div class="plan__price">
+                <span class="plan__amount">7</span><span class="plan__cur">€</span>
+              </div>
+              <span class="plan__period">Jednorazová platba · žiadne predplatné</span>
             </div>
             <ul class="plan__list">
               <li class="yes"><svg class="ico"><use href="#i-check"/></svg> Prístup na piatkové doučovanie</li>
@@ -236,21 +239,24 @@
               <li class="no"><svg class="ico"><use href="#i-x"/></svg> Poznámky z doučovaní</li>
               <li class="no"><svg class="ico"><use href="#i-x"/></svg> Záznamy z predošlých doučovaní</li>
             </ul>
-            <button class="btn btn--ghost btn--lg btn--block" data-buy="basic">
+            <button class="btn btn--ghost btn--lg btn--block" data-buy="basic" id="btnPlanBasic">
               Vybrať za 7&nbsp;€ <svg class="ico"><use href="#i-arrow"/></svg>
             </button>
           </article>
 
           <!-- Komplet -->
-          <article class="plan plan--featured reveal">
+          <article class="plan plan--featured reveal" id="cardPlanFull">
             <span class="plan__sticker">Odporúčame</span>
             <div class="plan__head">
               <span class="plan__ico"><svg class="ico"><use href="#i-notes"/></svg></span>
               <h3>Komplet</h3>
               <p>Doučovanie + všetky materiály na opakovanie.</p>
             </div>
-            <div class="plan__price">
-              <span class="plan__amount">10</span><span class="plan__cur">€</span>
+            <div class="plan__price-wrap">
+              <div class="plan__price">
+                <span class="plan__amount">10</span><span class="plan__cur">€</span>
+              </div>
+              <span class="plan__period">Jednorazová platba · žiadne predplatné</span>
             </div>
             <ul class="plan__list">
               <li class="yes"><svg class="ico"><use href="#i-check"/></svg> Prístup na piatkové doučovanie</li>
@@ -258,15 +264,16 @@
               <li class="yes"><svg class="ico"><use href="#i-check"/></svg> <span><b>Poznámky</b> z doučovaní</span></li>
               <li class="yes"><svg class="ico"><use href="#i-check"/></svg> <span><b>Záznamy</b> z predošlých doučovaní</span></li>
             </ul>
-            <button class="btn btn--yellow btn--lg btn--block" data-buy="full">
+            <button class="btn btn--yellow btn--lg btn--block" data-buy="full" id="btnPlanFull">
               Vybrať za 10&nbsp;€ <svg class="ico"><use href="#i-arrow"/></svg>
             </button>
-            <p class="hand hand--plan">len o 3 € viac a máš aj všetky materiály!</p>
+            <p class="hand hand--plan" id="handPlanText">len o 3 € viac a máš aj všetky materiály!</p>
           </article>
         </div>
 
         <ul class="trust reveal">
           <li><svg class="ico"><use href="#i-lock"/></svg> Bezpečná platba kartou</li>
+          <li><svg class="ico"><use href="#i-check"/></svg> <b>Jednorazová platba</b> — žiadne mesačné poplatky</li>
           <li><svg class="ico"><use href="#i-discord"/></svg> Link na Discord okamžite</li>
           <li><svg class="ico"><use href="#i-cal"/></svg> Doučovanie každý piatok</li>
         </ul>
@@ -283,6 +290,14 @@
 
         <div class="faq">
           <details class="reveal" open>
+            <summary>Je to jednorazová platba alebo mesačné predplatné?</summary>
+            <p>Ide o <b>čisto jednorazovú platbu</b> za konkrétne piatkové doučovanie. Žiadny mesačný subscription, žiadne opakované ani skryté poplatky. Zaplatíš iba raz za to, čo si vyberieš (7&nbsp;€ alebo 10&nbsp;€).</p>
+          </details>
+          <details class="reveal">
+            <summary>Dá sa zo 7 € doučovania neskôr prejsť na Komplet?</summary>
+            <p><b>Áno, kedykoľvek za doplatok 3&nbsp;€!</b> Ak si kúpiš základné doučovanie za 7&nbsp;€ a neskôr budeš chcieť aj poznámky a záznamy, stačí kliknúť na <i>„Môj prístup“</i> a doplatíš iba rozdiel – teda 3&nbsp;€ (opäť jednorazovo). Hneď získaš nový Discord link na Komplet server.</p>
+          </details>
+          <details class="reveal">
             <summary>Ako dostanem prístup na doučovanie?</summary>
             <p>Hneď po zaplatení sa ti na obrazovke zobrazí pozvánka na náš Discord server. Klikneš na&nbsp;ňu, pripojíš sa a&nbsp;si dnu. Žiadne čakanie.</p>
           </details>
@@ -348,17 +363,30 @@
         <div class="demo-pill"><span>DEMO</span> Platba je simulovaná — nič sa nestrhne</div>
         <h2 id="checkoutTitle" class="mstep__title">Pokladňa</h2>
 
-        <div class="plan-switch" role="radiogroup" aria-label="Balík">
+        <div class="upgrade-banner" id="upgradeBanner" hidden>
+          <div class="upgrade-banner__icon">⚡</div>
+          <div>
+            <b>Doplatok na balík Komplet</b>
+            <p>Máš zaplatené Doučovanie (7&nbsp;€). Za <b>jednorazový doplatok 3,00&nbsp;€</b> získaš okamžitý prístup ku všetkým poznámkam a záznamom.</p>
+          </div>
+        </div>
+
+        <div class="locked-badge" id="lockedUpgradeBadge" hidden>
+          <svg class="ico"><use href="#i-lock"/></svg>
+          <span>Balík: <b>Komplet (Doplatok 3,00&nbsp;€)</b> — voľba je uzamknutá</span>
+        </div>
+
+        <div class="plan-switch" id="planSwitch" role="radiogroup" aria-label="Balík">
           <label class="plan-opt">
             <input type="radio" name="plan" value="basic" />
             <span class="plan-opt__radio"></span>
-            <span class="plan-opt__txt"><b>Doučovanie</b><small>Piatkové doučovanie</small></span>
+            <span class="plan-opt__txt"><b>Doučovanie</b><small>Piatkové doučovanie · jednorazovo</small></span>
             <em>7&nbsp;€</em>
           </label>
           <label class="plan-opt">
             <input type="radio" name="plan" value="full" />
             <span class="plan-opt__radio"></span>
-            <span class="plan-opt__txt"><b>Komplet</b><small>Doučovanie + poznámky a záznamy</small></span>
+            <span class="plan-opt__txt"><b>Komplet</b><small>Doučovanie + materiály · jednorazovo</small></span>
             <em>10&nbsp;€</em>
           </label>
         </div>
@@ -402,14 +430,16 @@
 
           <div class="summary">
             <div class="summary__row"><span id="sumPlan">Balík Komplet</span><span id="sumPrice">10,00 €</span></div>
-            <div class="summary__row summary__row--total"><span>Spolu</span><span id="sumTotal">10,00 €</span></div>
+            <div class="summary__row" id="sumPrevRow" hidden><span>Pôvodne uhradené (Doučovanie)</span><span id="sumPrevPrice">-7,00 €</span></div>
+            <div class="summary__row"><span>Typ platby</span><span class="badge-onetime">Jednorazovo (žiadne predplatné)</span></div>
+            <div class="summary__row summary__row--total"><span id="sumTotalLabel">Spolu k úhrade</span><span id="sumTotal">10,00 €</span></div>
           </div>
 
           <button type="submit" class="btn btn--primary btn--lg btn--block" id="payBtn">
             <svg class="ico"><use href="#i-lock"/></svg>
             <span id="payLabel">Zaplatiť 10,00 €</span>
           </button>
-          <p class="secure">V ostrej verzii prebehne platba cez zabezpečenú platobnú bránu.</p>
+          <p class="secure">V ostrej verzii prebehne platba cez zabezpečenú platobnú bránu. Jednorazová platba — žiadne mesačné predplatné.</p>
         </form>
       </div>
 
@@ -456,6 +486,17 @@
           </div>
 
           <ul class="ticket__access" id="tAccess"></ul>
+
+          <div class="ticket__upgrade-box" id="tUpgradeBox" hidden>
+            <div class="ticket__upgrade-text">
+              <span class="ticket__upgrade-badge">Zvýhodnený prechod</span>
+              <b>Chceš aj materiály a záznamy?</b>
+              <p>Môžeš kedykoľvek prejsť na <b>Komplet</b> len za <b>jednorazový doplatok 3&nbsp;€</b>.</p>
+            </div>
+            <button type="button" class="btn btn--sm btn--yellow" id="btnTicketUpgrade" data-upgrade>
+              Doplatiť 3&nbsp;€ na Komplet <svg class="ico"><use href="#i-arrow"/></svg>
+            </button>
+          </div>
         </div>
 
         <ol class="next-steps">

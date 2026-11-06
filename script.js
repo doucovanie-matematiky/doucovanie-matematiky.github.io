@@ -1,7 +1,7 @@
 /* =========================================================
    Piatková matika — demo paywall
    ---------------------------------------------------------
-   POZOR: Toto je DEMO. Platba je simulovaná a link je priamo
+   POZOR: Toto je DEMO. Platba je simulovaná a linky sú priamo
    v kóde. V ostrej verzii musí link vydávať server až po
    potvrdení platby (napr. Stripe webhook).
    ========================================================= */
@@ -10,6 +10,7 @@
 
   const CONFIG = {
     storageKey: "piatkova-matika-access",
+    upgradePrice: 3,
     plans: {
       basic: {
         id: "basic",
@@ -62,7 +63,7 @@
     toastEl.textContent = msg;
     toastEl.classList.add("is-show");
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toastEl.classList.remove("is-show"), 2400);
+    toastTimer = setTimeout(() => toastEl.classList.remove("is-show"), 2800);
   }
 
   /* ---------- Najbližší piatok ---------- */
@@ -112,7 +113,7 @@
   );
 
   /* =========================================================
-     POKLADŇA
+     POKLADŇA & UPGRADE FLOW
      ========================================================= */
   const modal = $("#checkout");
   const dialog = $(".modal__dialog", modal);
@@ -124,7 +125,9 @@
     cvc: $("#cardCvc"),
     name: $("#cardName"),
   };
+
   let currentPlan = "full";
+  let isUpgradeMode = false;
   let currentInvite = CONFIG.plans.full.invite;
   let busy = false;
   let lastFocus = null;
@@ -155,30 +158,121 @@
     lastFocus && lastFocus.focus && lastFocus.focus({ preventScroll: true });
   }
 
-  function setPlan(planId) {
-    currentPlan = planId;
-    const plan = CONFIG.plans[planId];
-    $$('input[name="plan"]', modal).forEach((r) => (r.checked = r.value === planId));
-    $("#sumPlan").textContent = `Balík ${plan.name}`;
-    $("#sumPrice").textContent = fmtPrice(plan.price);
-    $("#sumTotal").textContent = fmtPrice(plan.price);
-    $("#payLabel").textContent = `Zaplatiť ${fmtPrice(plan.price)}`;
+  function setPlan(planId, isUpgrade = false) {
+    isUpgradeMode = isUpgrade;
+    currentPlan = isUpgrade ? "full" : planId;
+
+    const upgradeBanner = $("#upgradeBanner");
+    const lockedBadge = $("#lockedUpgradeBadge");
+    const planSwitch = $("#planSwitch");
+    const sumPrevRow = $("#sumPrevRow");
+
+    if (isUpgradeMode) {
+      // Režim doplatku: balík je fixne Komplet a voľba sa nedá zmeniť
+      $("#checkoutTitle").textContent = "Doplatok na Komplet";
+      upgradeBanner.hidden = false;
+      lockedBadge.hidden = false;
+      planSwitch.hidden = true;
+      sumPrevRow.hidden = false;
+
+      $("#sumPlan").textContent = "Cieľový balík Komplet";
+      $("#sumPrice").textContent = fmtPrice(CONFIG.plans.full.price);
+      $("#sumPrevPrice").textContent = `-${fmtPrice(CONFIG.plans.basic.price)}`;
+      $("#sumTotalLabel").textContent = "Doplatok k úhrade (jednorazovo)";
+      $("#sumTotal").textContent = fmtPrice(CONFIG.upgradePrice);
+      $("#payLabel").textContent = `Doplatiť ${fmtPrice(CONFIG.upgradePrice)} (jednorazovo)`;
+    } else {
+      // Štandardná jednorazová platba za vybraný balík
+      $("#checkoutTitle").textContent = "Pokladňa";
+      upgradeBanner.hidden = true;
+      lockedBadge.hidden = true;
+      planSwitch.hidden = false;
+      sumPrevRow.hidden = true;
+
+      const plan = CONFIG.plans[planId];
+      $$('input[name="plan"]', modal).forEach((r) => (r.checked = r.value === planId));
+      $("#sumPlan").textContent = `Balík ${plan.name}`;
+      $("#sumPrice").textContent = fmtPrice(plan.price);
+      $("#sumTotalLabel").textContent = "Spolu (jednorazová platba)";
+      $("#sumTotal").textContent = fmtPrice(plan.price);
+      $("#payLabel").textContent = `Zaplatiť ${fmtPrice(plan.price)} (jednorazovo)`;
+    }
   }
 
-  // Tlačidlá "kúpiť"
+  function startUpgradeFlow() {
+    const existing = storage.get();
+    if (existing?.plan === "full") {
+      renderSuccess(existing, false);
+      openModal("success");
+      return;
+    }
+
+    setPlan("full", true);
+    clearErrors();
+    if (existing?.email) {
+      fields.email.value = existing.email;
+    }
+    openModal("pay");
+  }
+
+  // Kliknutia na cenník
   $$("[data-buy]").forEach((btn) =>
     btn.addEventListener("click", () => {
-      setPlan(btn.dataset.buy);
+      const existing = storage.get();
+      const planToBuy = btn.dataset.buy;
+
+      if (existing?.plan === "full") {
+        renderSuccess(existing, false);
+        openModal("success");
+        return;
+      }
+
+      if (existing?.plan === "basic") {
+        if (planToBuy === "basic") {
+          renderSuccess(existing, false);
+          openModal("success");
+          return;
+        }
+        if (planToBuy === "full") {
+          startUpgradeFlow();
+          return;
+        }
+      }
+
+      setPlan(planToBuy, false);
       clearErrors();
       openModal("pay");
     })
   );
+
   $("#navCta").addEventListener("click", (e) => {
-    // na mobile, kde nie je vidieť cenník, rovno otvor pokladňu
-    if (window.innerWidth <= 520) { e.preventDefault(); setPlan("full"); openModal("pay"); }
+    const existing = storage.get();
+    if (existing) {
+      e.preventDefault();
+      renderSuccess(existing, false);
+      openModal("success");
+      return;
+    }
+    if (window.innerWidth <= 520) {
+      e.preventDefault();
+      setPlan("full", false);
+      openModal("pay");
+    }
   });
 
-  $$('input[name="plan"]', modal).forEach((r) => r.addEventListener("change", () => setPlan(r.value)));
+  $$('input[name="plan"]', modal).forEach((r) =>
+    r.addEventListener("change", () => {
+      if (!isUpgradeMode) setPlan(r.value, false);
+    })
+  );
+
+  // Upgrade tlačidlá (z lístka, zoznamu prístupov alebo kdekoľvek s [data-upgrade])
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("[data-upgrade]")) {
+      e.preventDefault();
+      startUpgradeFlow();
+    }
+  });
 
   // Zatváranie
   modal.addEventListener("click", (e) => {
@@ -233,7 +327,7 @@
 
   $("#fillDemo").addEventListener("click", () => {
     const d = CONFIG.demoCard;
-    fields.email.value = d.email;
+    if (!fields.email.value) fields.email.value = d.email;
     fields.number.value = d.number;
     fields.number.dispatchEvent(new Event("input"));
     fields.exp.value = d.exp;
@@ -257,7 +351,7 @@
   function setError(input, msg) {
     const f = input.closest(".field");
     f.classList.remove("has-error");
-    void f.offsetWidth; // reštart animácie
+    void f.offsetWidth;
     f.classList.add("has-error");
     $(".field__err", f).textContent = msg;
   }
@@ -300,28 +394,58 @@
     busy = true;
     showStep("processing");
     const txt = $("#processingText");
-    const messages = ["Spájame sa s bankou…", "Overujeme platbu…", "Generujeme tvoju pozvánku…"];
+
+    const messages = isUpgradeMode
+      ? ["Spájame sa s bankou…", "Overujeme jednorazový doplatok 3 €…", "Odomykáme materiály na Discorde…"]
+      : ["Spájame sa s bankou…", "Overujeme jednorazovú platbu…", "Generujeme tvoju pozvánku…"];
+
     for (const msg of messages) {
       txt.classList.remove("is-swap");
       void txt.offsetWidth;
       txt.textContent = msg;
       txt.classList.add("is-swap");
-      await wait(900);
+      await wait(850);
     }
 
-    const purchase = {
-      plan: currentPlan,
-      order: "PM-" + String(Math.floor(100000 + Math.random() * 900000)),
-      email: fields.email.value.trim(),
-      paidAt: new Date().toISOString(),
-    };
-    storage.set(purchase);
+    const existing = storage.get();
+    let purchase;
 
+    if (isUpgradeMode) {
+      purchase = {
+        plan: "full",
+        order: existing?.order ? existing.order + "-UP" : ("PM-" + Math.floor(100000 + Math.random() * 900000)),
+        email: fields.email.value.trim() || existing?.email || "student@example.sk",
+        paidAt: new Date().toISOString(),
+        upgraded: true,
+        pricePaid: CONFIG.upgradePrice,
+        totalPaid: CONFIG.plans.full.price,
+      };
+      toast("Úspešne si doplatil 3 € a odomkol Komplet! 🎉");
+    } else {
+      const plan = CONFIG.plans[currentPlan];
+      purchase = {
+        plan: currentPlan,
+        order: "PM-" + Math.floor(100000 + Math.random() * 900000),
+        email: fields.email.value.trim(),
+        paidAt: new Date().toISOString(),
+        upgraded: false,
+        pricePaid: plan.price,
+        totalPaid: plan.price,
+      };
+      toast("Platba prebehla úspešne — vitaj na doučovaní! 🎉");
+    }
+
+    storage.set(purchase);
+    isUpgradeMode = false;
     busy = false;
+
     renderSuccess(purchase, true);
     showStep("success");
     $(".invite__join", modal).focus({ preventScroll: true });
+
     updateNav();
+    updatePageForUser();
+
     if (!reducedMotion) confetti();
     form.reset();
     brandEl.className = "card-brand";
@@ -330,9 +454,19 @@
   /* ---------- Úspešná obrazovka ---------- */
   function renderSuccess(purchase, fresh) {
     const plan = CONFIG.plans[purchase.plan] || CONFIG.plans.full;
-    $("#successTitle").textContent = fresh ? "Platba prebehla úspešne!" : "Tvoj prístup na doučovanie";
-    $("#tPlan").textContent = plan.name;
-    $("#tAmount").textContent = fmtPrice(plan.price);
+
+    if (purchase.upgraded) {
+      $("#successTitle").textContent = fresh ? "Doplatok prebehol úspešne!" : "Tvoj prístup na doučovanie";
+      $("#tPlan").textContent = "Komplet (Upgrade)";
+      $("#tAmount").textContent = "10,00 € (7 € + 3 € doplatok)";
+      $(".mstep__sub", modal).textContent = "Tvoj prístup bol natrvalo rozšírený. Tu je tvoja pozvánka na Discord pre Komplet:";
+    } else {
+      $("#successTitle").textContent = fresh ? "Platba prebehla úspešne!" : "Tvoj prístup na doučovanie";
+      $("#tPlan").textContent = plan.name;
+      $("#tAmount").textContent = `${fmtPrice(plan.price)} (jednorazovo)`;
+      $(".mstep__sub", modal).textContent = "Vitaj na piatkovom doučovaní. Tu je tvoja pozvánka na Discord:";
+    }
+
     $("#tOrder").textContent = "#" + purchase.order;
     $("#tAccessLabel").textContent = plan.name;
     $("#inviteLink").textContent = plan.invite.replace(/^https?:\/\//, "");
@@ -344,6 +478,8 @@
       ["notes", "Poznámky z doučovaní"],
       ["recordings", "Záznamy z predošlých doučovaní"],
     ];
+
+    const isBasic = purchase.plan === "basic";
     const list = $("#tAccess");
     list.innerHTML = items
       .map(([key, label]) => {
@@ -351,20 +487,47 @@
         return `<li class="${ok ? "yes" : "no"}">
           <svg class="ico"><use href="#${ok ? "i-check" : "i-lock"}"/></svg>
           <span>${label}</span>
-          ${!ok && key === "notes" ? '<button type="button" class="upsell" data-upgrade>Prejsť na Komplet</button>' : ""}
+          ${!ok && key === "notes" ? '<button type="button" class="upsell" data-upgrade>Doplatiť 3 € na Komplet →</button>' : ""}
         </li>`;
       })
       .join("");
+
+    // Zobrazenie / skrytie upgrade banneru v lístku
+    const tUpgradeBox = $("#tUpgradeBox");
+    if (tUpgradeBox) {
+      tUpgradeBox.hidden = !isBasic;
+    }
   }
 
-  // Upgrade z 7 € na Komplet
-  modal.addEventListener("click", (e) => {
-    if (!e.target.closest("[data-upgrade]")) return;
-    setPlan("full");
-    showStep("pay");
-    fields.email.value = storage.get()?.email || "";
-    setTimeout(() => fields.number.focus(), 50);
-  });
+  /* ---------- Prispôsobenie landing page podľa stavu používateľa ---------- */
+  function updatePageForUser() {
+    const purchase = storage.get();
+    const btnBasic = $("#btnPlanBasic");
+    const btnFull = $("#btnPlanFull");
+    const handPlan = $("#handPlanText");
+
+    if (!btnBasic || !btnFull) return;
+
+    if (purchase?.plan === "full") {
+      btnBasic.innerHTML = `✓ Zahrnuté v Komplete`;
+      btnBasic.className = "btn btn--lg btn--block btn-plan-owned";
+      btnFull.innerHTML = `✓ Tvoj balík: Komplet (otvoriť prístup)`;
+      btnFull.className = "btn btn--lg btn--block btn--yellow";
+      if (handPlan) handPlan.textContent = "Máš odomknuté všetky materiály! 🎉";
+    } else if (purchase?.plan === "basic") {
+      btnBasic.innerHTML = `✓ Tvoj balík: Doučovanie (7 €)`;
+      btnBasic.className = "btn btn--lg btn--block btn-plan-owned";
+      btnFull.innerHTML = `Doplatiť 3&nbsp;€ na Komplet <svg class="ico"><use href="#i-arrow"/></svg>`;
+      btnFull.className = "btn btn--lg btn--block btn--yellow";
+      if (handPlan) handPlan.textContent = "Doplať už len 3 € a máš aj materiály!";
+    } else {
+      btnBasic.innerHTML = `Vybrať za 7&nbsp;€ <svg class="ico"><use href="#i-arrow"/></svg>`;
+      btnBasic.className = "btn btn--ghost btn--lg btn--block";
+      btnFull.innerHTML = `Vybrať za 10&nbsp;€ <svg class="ico"><use href="#i-arrow"/></svg>`;
+      btnFull.className = "btn btn--yellow btn--lg btn--block";
+      if (handPlan) handPlan.textContent = "len o 3 € viac a máš aj všetky materiály!";
+    }
+  }
 
   /* ---------- Kopírovanie linku ---------- */
   $("#copyLink").addEventListener("click", async () => {
@@ -402,12 +565,13 @@
     renderSuccess(p, false);
     openModal("success");
   });
-  updateNav();
 
   $("#resetDemo").addEventListener("click", () => {
     storage.clear();
+    setPlan("full", false);
     updateNav();
-    toast("Demo resetované — môžeš skúsiť platbu znova.");
+    updatePageForUser();
+    toast("Demo resetované — môžeš vyskúšať nákup od začiatku.");
   });
 
   /* ---------- Konfety ---------- */
@@ -435,5 +599,9 @@
     setTimeout(() => (box.innerHTML = ""), 4800);
   }
 
-  setPlan("full");
+  // Inicializácia
+  const saved = storage.get();
+  setPlan(saved?.plan || "full", false);
+  updateNav();
+  updatePageForUser();
 })();
