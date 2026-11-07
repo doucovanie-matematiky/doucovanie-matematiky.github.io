@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=3.0" />
+  <link rel="stylesheet" href="styles.css?v=3.1" />
 </head>
 <body>
 
@@ -190,7 +190,7 @@
             <span class="step-card__num">2</span>
             <span class="step-card__ico step-card__ico--discord"><svg class="ico"><use href="#i-discord"/></svg></span>
             <h3>Napíš nám do DM</h3>
-            <p>Napíš na Discorde lektorovi <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="link-user"><b>janullaa</b></a> alebo <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="link-user"><b>D4v1iS</b></a>, o ktorý balík máš záujem.</p>
+            <p>Klikni na lektora <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="link-user" data-copy-msg="Ahoj! Mám záujem o doučovanie matematiky."><b>janullaa</b></a> alebo <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="link-user" data-copy-msg="Ahoj! Mám záujem o doučovanie matematiky."><b>D4v1iS</b></a> — správa sa ti rovno <b>skopíruje</b> a v Discorde ju len vložíš cez Ctrl+V.</p>
           </li>
           <li class="step-card reveal">
             <span class="step-card__num">3</span>
@@ -232,12 +232,12 @@
               <li class="no"><svg class="ico"><use href="#i-x"/></svg> Záznamy z predošlých doučovaní</li>
             </ul>
             <div class="plan__dm-wrap">
-              <p class="plan__dm-title">Objednať cez DM na Discorde:</p>
+              <p class="plan__dm-title">Objednať cez DM (správa sa skopíruje):</p>
               <div class="plan__dm-btns">
-                <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="btn btn--sm btn--discord">
+                <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="btn btn--sm btn--discord" data-copy-msg="Ahoj! Mám záujem o piatkové Doučovanie (8 €).">
                   <svg class="ico"><use href="#i-discord"/></svg> janullaa ↗
                 </a>
-                <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="btn btn--sm btn--discord">
+                <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="btn btn--sm btn--discord" data-copy-msg="Ahoj! Mám záujem o piatkové Doučovanie (8 €).">
                   <svg class="ico"><use href="#i-discord"/></svg> D4v1iS ↗
                 </a>
               </div>
@@ -265,12 +265,12 @@
               <li class="yes"><svg class="ico"><use href="#i-check"/></svg> <span><b>Záznamy</b> z predošlých doučovaní</span></li>
             </ul>
             <div class="plan__dm-wrap">
-              <p class="plan__dm-title">Objednať cez DM na Discorde:</p>
+              <p class="plan__dm-title">Objednať cez DM (správa sa skopíruje):</p>
               <div class="plan__dm-btns">
-                <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="btn btn--sm btn--yellow">
+                <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="btn btn--sm btn--yellow" data-copy-msg="Ahoj! Mám záujem o balík Komplet (12 €) — doučovanie + materiály.">
                   <svg class="ico"><use href="#i-discord"/></svg> janullaa ↗
                 </a>
-                <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="btn btn--sm btn--yellow">
+                <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="btn btn--sm btn--yellow" data-copy-msg="Ahoj! Mám záujem o balík Komplet (12 €) — doučovanie + materiály.">
                   <svg class="ico"><use href="#i-discord"/></svg> D4v1iS ↗
                 </a>
               </div>
@@ -338,10 +338,10 @@
             <p>Vyber si balík a&nbsp;napíš nám správu do DM na Discorde. Radi ťa uvidíme na doučovaní!</p>
           </div>
           <div class="cta-box__dm-btns">
-            <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="btn btn--yellow btn--lg">
+            <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="btn btn--yellow btn--lg" data-copy-msg="Ahoj! Chcel by som sa informovať ohľadom piatkového doučovania matematiky.">
               <svg class="ico ico--discord"><use href="#i-discord"/></svg> Napísať janullaa ↗
             </a>
-            <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="btn btn--white btn--lg">
+            <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="btn btn--white btn--lg" data-copy-msg="Ahoj! Chcel by som sa informovať ohľadom piatkového doučovania matematiky.">
               <svg class="ico ico--discord"><use href="#i-discord"/></svg> Napísať D4v1iS ↗
             </a>
           </div>
@@ -361,6 +361,16 @@
     </div>
   </footer>
 
-  <script src="script.js?v=3.0"></script>
+  <!-- Toast notifikácia pri skopírovaní DM správy -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <div class="toast__header">
+      <span class="toast__icon">📋</span>
+      <span class="toast__title">Správa skopírovaná do schránky!</span>
+    </div>
+    <div class="toast__body" id="toastBody"></div>
+    <div class="toast__hint" id="toastHint">V chate na Discorde stačí stlačiť <b>Ctrl + V</b> a odoslať.</div>
+  </div>
+
+  <script src="script.js?v=3.1"></script>
 </body>
 </html>

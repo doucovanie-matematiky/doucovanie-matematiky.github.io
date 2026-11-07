@@ -61,4 +61,62 @@
       setMockPlan(b.dataset.mockPlan);
     })
   );
+
+  /* ---------- Auto-copy správa pri kliknutí na DM kontakt ---------- */
+  const toastEl = $("#toast");
+  const toastBody = $("#toastBody");
+  const toastHint = $("#toastHint");
+  let toastTimer;
+
+  function showToast(text) {
+    if (!toastEl) return;
+    if (toastBody) toastBody.textContent = `„${text}“`;
+    const isTouch = window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window;
+    if (toastHint) {
+      toastHint.innerHTML = isTouch
+        ? "V chate na Discorde stačí podržať prst a zvoliť <b>Vložiť</b>."
+        : "V chate na Discorde stačí stlačiť <b>Ctrl + V</b> (Cmd + V) a odoslať.";
+    }
+    toastEl.classList.add("is-show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toastEl.classList.remove("is-show");
+    }, 4500);
+  }
+
+  async function copyToClipboard(text) {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+    } catch {
+      // fallback
+    }
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.top = "-9999px";
+      ta.style.left = "-9999px";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      const ok = document.execCommand("copy");
+      ta.remove();
+      return ok;
+    } catch {
+      return false;
+    }
+  }
+
+  $$("[data-copy-msg]").forEach((el) => {
+    el.addEventListener("click", () => {
+      const msg = el.dataset.copyMsg;
+      if (!msg) return;
+      copyToClipboard(msg);
+      showToast(msg);
+    });
+  });
 })();

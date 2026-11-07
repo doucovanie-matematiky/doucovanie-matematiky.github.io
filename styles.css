@@ -720,6 +720,64 @@ input { font: inherit; }
   color: var(--yellow);
 }
 
+/* Toast pre skopírovanú DM správu */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(140%);
+  background: var(--ink);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4), 4px 4px 0 var(--primary);
+  border-radius: 16px;
+  padding: 14px 18px;
+  max-width: min(440px, calc(100vw - 32px));
+  width: max-content;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.35s var(--spring), opacity 0.25s, visibility 0.35s;
+  pointer-events: none;
+}
+.toast.is-show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.toast__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--yellow);
+}
+.toast__icon {
+  font-size: 1.1rem;
+}
+.toast__body {
+  margin-top: 6px;
+  font-size: 0.86rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px 10px;
+  border-radius: 8px;
+  border-left: 3px solid var(--primary);
+  word-break: break-word;
+  font-style: italic;
+}
+.toast__hint {
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: #c7d2fe;
+}
+.toast__hint b {
+  color: #fff;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1240px) {
   .hand--plan { display: none; }
