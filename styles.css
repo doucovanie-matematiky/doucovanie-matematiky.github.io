@@ -777,6 +777,22 @@ input { font: inherit; }
 .toast__hint b {
   color: #fff;
 }
+.toast__fallback {
+  display: inline-block;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.18);
+  font-size: 0.78rem;
+  color: var(--yellow);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.toast__fallback:hover {
+  color: #fff;
+}
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1240px) {

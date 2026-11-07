@@ -66,22 +66,26 @@
   const toastEl = $("#toast");
   const toastBody = $("#toastBody");
   const toastHint = $("#toastHint");
+  const toastFallback = $("#toastFallback");
   let toastTimer;
 
-  function showToast(text) {
+  function showToast(text, userId) {
     if (!toastEl) return;
     if (toastBody) toastBody.textContent = `„${text}“`;
     const isTouch = window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window;
     if (toastHint) {
       toastHint.innerHTML = isTouch
-        ? "V chate na Discorde stačí podržať prst a zvoliť <b>Vložiť</b>."
-        : "V chate na Discorde stačí stlačiť <b>Ctrl + V</b> (Cmd + V) a odoslať.";
+        ? "V aplikácii Discord stačí podržať prst a zvoliť <b>Vložiť</b>."
+        : "V aplikácii Discord stačí stlačiť <b>Ctrl + V</b> (Cmd + V) a odoslať.";
+    }
+    if (toastFallback) {
+      toastFallback.href = userId ? `https://discord.com/users/${userId}` : "https://discord.com";
     }
     toastEl.classList.add("is-show");
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => {
       toastEl.classList.remove("is-show");
-    }, 4500);
+    }, 6000);
   }
 
   async function copyToClipboard(text) {
@@ -114,9 +118,9 @@
   $$("[data-copy-msg]").forEach((el) => {
     el.addEventListener("click", () => {
       const msg = el.dataset.copyMsg;
-      if (!msg) return;
-      copyToClipboard(msg);
-      showToast(msg);
+      const userId = el.dataset.userId;
+      if (msg) copyToClipboard(msg);
+      if (msg) showToast(msg, userId);
     });
   });
 })();
