@@ -669,7 +669,7 @@ body.modal-open {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 16px 12px;
+  padding: 8px 12px;
   overflow: hidden;
   visibility: hidden;
   pointer-events: none;
@@ -688,17 +688,18 @@ body.modal-open {
 .modal__dialog {
   position: relative;
   width: min(460px, 100%);
-  max-height: calc(100% - 16px);
-  margin-top: 8px;
+  max-height: calc(100vh - 16px);
+  max-height: calc(100dvh - 16px);
+  margin: 4px auto 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 22px 20px 20px;
+  padding: 18px 18px 16px;
   background: var(--paper);
   border: var(--border);
   border-radius: 20px;
   box-shadow: 6px 6px 0 var(--ink);
   opacity: 0;
-  transform: translateY(20px) scale(0.97);
+  transform: translateY(16px) scale(0.98);
   transition: opacity 0.25s var(--ease), transform 0.35s var(--spring);
   scrollbar-width: thin;
   scrollbar-color: #cbd5e1 transparent;
@@ -757,6 +758,101 @@ body.modal-open {
 .plan-opt:has(input:checked) { border-color: var(--ink); background: var(--primary-soft); box-shadow: var(--pop-sm); }
 .plan-opt:has(input:checked) .plan-opt__radio { border: 5px solid var(--primary); }
 .plan-opt:has(input:focus-visible) { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+/* Stripe Test Box */
+.stripe-box {
+  background: #f6f7fb;
+  border: 2px solid #635bff;
+  border-radius: 13px;
+  padding: 9px 12px;
+  margin-bottom: 8px;
+  box-shadow: 2px 2px 0 rgba(99, 91, 255, 0.25);
+}
+.stripe-box__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.stripe-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: #635bff;
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+.ico-stripe {
+  width: 22px;
+  height: 11px;
+  display: inline-block;
+}
+.stripe-price {
+  font-family: var(--f-head);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #1e1e24;
+}
+.stripe-box__desc {
+  font-size: 0.77rem;
+  color: var(--ink-2);
+  margin-bottom: 7px;
+  line-height: 1.3;
+}
+.btn--stripe {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: var(--border);
+  background: #635bff;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: background 0.15s, transform 0.15s var(--spring);
+}
+.btn--stripe:hover {
+  background: #5046e5;
+  transform: translateY(-1px);
+}
+.btn--stripe:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+.btn--stripe .ico {
+  width: 15px;
+  height: 15px;
+}
+
+.divider-text {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 6px 0 8px;
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+.divider-text::before,
+.divider-text::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1.5px dashed var(--line);
+}
+.divider-text span {
+  padding: 0 8px;
+}
 
 /* Form */
 .field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
@@ -929,8 +1025,12 @@ body.modal-open {
 .invite__info span { font-size: 0.82rem; color: var(--d-muted); display: inline-flex; align-items: center; gap: 6px; }
 .invite__info strong { color: var(--yellow); }
 .invite__dot { width: 8px; height: 8px; border-radius: 50%; background: #23a55a; display: inline-block; }
+.invite__dm-hint { color: #a5b4fc !important; font-size: 0.76rem !important; margin-top: 2px; }
 .invite__join {
   flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 10px 18px;
   border-radius: 8px;
   background: var(--discord-green);
@@ -938,6 +1038,7 @@ body.modal-open {
   font-weight: 600; font-size: 0.92rem;
   transition: background 0.2s, transform 0.2s var(--spring);
 }
+.invite__join .ico { width: 18px; height: 18px; flex: none; }
 .invite__join:hover { background: #1a6334; transform: translateY(-1px); }
 
 .link-row {

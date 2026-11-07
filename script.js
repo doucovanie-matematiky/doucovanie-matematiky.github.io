@@ -10,20 +10,33 @@
 
   const CONFIG = {
     storageKey: "piatkova-matika-access",
-    upgradePrice: 3,
+    upgradePrice: 4,
+    stripe: {
+      enabled: true,
+      testPrice: 1,
+      paymentLink: "https://buy.stripe.com/test_1eur_piatkovamatika",
+      discordDm: "https://discord.gg/YpF3u7Y2eU",
+    },
     plans: {
       basic: {
         id: "basic",
         name: "Doučovanie",
-        price: 7,
+        price: 8,
         invite: "https://discord.gg/YpF3u7Y2eU",
         access: { tutoring: true, notes: false, recordings: false },
       },
       full: {
         id: "full",
         name: "Komplet",
-        price: 10,
+        price: 12,
         invite: "https://discord.gg/3nusJQKcmD",
+        access: { tutoring: true, notes: true, recordings: true },
+      },
+      "stripe-test": {
+        id: "stripe-test",
+        name: "Stripe Test",
+        price: 1,
+        invite: "https://discord.gg/YpF3u7Y2eU",
         access: { tutoring: true, notes: true, recordings: true },
       },
     },
@@ -175,6 +188,8 @@
     const upgradeBanner = $("#upgradeBanner");
     const planSwitch = $("#planSwitch");
     const sumPrevRow = $("#sumPrevRow");
+    const stripeBox = $("#stripeBox");
+    const orDivider = $("#orDivider");
 
     if (isUpgradeMode) {
       // Režim doplatku: balík je fixne Komplet a voľba sa nedá zmeniť
@@ -182,6 +197,8 @@
       upgradeBanner.hidden = false;
       planSwitch.hidden = true;
       sumPrevRow.hidden = false;
+      if (stripeBox) stripeBox.hidden = true;
+      if (orDivider) orDivider.hidden = true;
 
       $("#sumPlan").textContent = "Balík Komplet";
       $("#sumPrice").textContent = fmtPrice(CONFIG.plans.full.price);
@@ -195,8 +212,10 @@
       upgradeBanner.hidden = true;
       planSwitch.hidden = false;
       sumPrevRow.hidden = true;
+      if (stripeBox) stripeBox.hidden = false;
+      if (orDivider) orDivider.hidden = false;
 
-      const plan = CONFIG.plans[planId];
+      const plan = CONFIG.plans[planId] || CONFIG.plans.full;
       $$('input[name="plan"]', modal).forEach((r) => (r.checked = r.value === planId));
       $("#sumPlan").textContent = `Balík ${plan.name}`;
       $("#sumPrice").textContent = fmtPrice(plan.price);
@@ -403,8 +422,8 @@
     const txt = $("#processingText");
 
     const messages = isUpgradeMode
-      ? ["Spájame sa s bankou…", "Overujeme jednorazový doplatok 3 €…", "Odomykáme materiály na Discorde…"]
-      : ["Spájame sa s bankou…", "Overujeme jednorazovú platbu…", "Generujeme tvoju pozvánku…"];
+      ? ["Spájame sa s bankou…", "Overujeme jednorazový doplatok 4 €…", "Rozširujeme tvoj prístup…"]
+      : ["Spájame sa s bankou…", "Overujeme jednorazovú platbu…", "Zaevidovávame objednávku…"];
 
     for (const msg of messages) {
       txt.classList.remove("is-swap");
@@ -427,7 +446,7 @@
         pricePaid: CONFIG.upgradePrice,
         totalPaid: CONFIG.plans.full.price,
       };
-      toast("Úspešne si doplatil 3 € a odomkol Komplet! 🎉");
+      toast("Úspešne si doplatil 4 € a odomkol Komplet! 🎉");
     } else {
       const plan = CONFIG.plans[currentPlan];
       purchase = {
@@ -448,7 +467,7 @@
 
     renderSuccess(purchase, true);
     showStep("success");
-    $(".invite__join", modal).focus({ preventScroll: true });
+    $("#joinBtn")?.focus({ preventScroll: true });
 
     updateNav();
     updatePageForUser();
@@ -465,20 +484,28 @@
     if (purchase.upgraded) {
       $("#successTitle").textContent = fresh ? "Doplatok prebehol úspešne!" : "Tvoj prístup na doučovanie";
       $("#tPlan").textContent = "Komplet (Upgrade)";
-      $("#tAmount").textContent = "10,00 € (7 € + 3 € doplatok)";
-      $(".mstep__sub", modal).textContent = "Tvoj prístup bol natrvalo rozšírený. Tu je tvoja pozvánka na Discord pre Komplet:";
+      $("#tAmount").textContent = "12,00 € (8 € + 4 € doplatok)";
+      $(".mstep__sub", modal).textContent = "Tvoj prístup bol natrvalo rozšírený na Komplet. Pošli nám správu do DM a obratom získaš materiály.";
+    } else if (purchase.plan === "stripe-test") {
+      $("#successTitle").textContent = fresh ? "Stripe platba úspešná!" : "Tvoj Stripe test nákup";
+      $("#tPlan").textContent = "Stripe Test";
+      $("#tAmount").textContent = "1,00 € (skúšobná platba)";
+      $(".mstep__sub", modal).textContent = "Skúšobná platba 1,00 € cez Stripe bola úspešne zaevidovaná! Prepojenie je funkčné.";
     } else {
       $("#successTitle").textContent = fresh ? "Platba prebehla úspešne!" : "Tvoj prístup na doučovanie";
       $("#tPlan").textContent = plan.name;
-      $("#tAmount").textContent = `${fmtPrice(plan.price)} (jednorazovo)`;
-      $(".mstep__sub", modal).textContent = "Vitaj na piatkovom doučovaní. Tu je tvoja pozvánka na Discord:";
+      $("#tAmount").textContent = `${fmtPrice(purchase.pricePaid || plan.price)} (jednorazovo)`;
+      $(".mstep__sub", modal).textContent = "Prístup na doučovanie a materiály ti pošleme priamo do správy (DM).";
     }
 
-    $("#tOrder").textContent = "#" + purchase.order;
+    const orderId = purchase.order.startsWith("#") ? purchase.order : "#" + purchase.order;
+    $("#tOrder").textContent = orderId;
+    const orderCodeCopy = $("#orderCodeCopy");
+    if (orderCodeCopy) orderCodeCopy.textContent = orderId;
     $("#tAccessLabel").textContent = plan.name;
-    $("#inviteLink").textContent = plan.invite.replace(/^https?:\/\//, "");
-    $("#joinBtn").href = plan.invite;
-    currentInvite = plan.invite;
+
+    const joinBtn = $("#joinBtn");
+    if (joinBtn) joinBtn.href = CONFIG.stripe.discordDm;
 
     const items = [
       ["tutoring", "Piatkové doučovanie"],
@@ -494,7 +521,7 @@
         return `<li class="${ok ? "yes" : "no"}">
           <svg class="ico"><use href="#${ok ? "i-check" : "i-lock"}"/></svg>
           <span>${label}</span>
-          ${!ok && key === "notes" ? '<button type="button" class="upsell" data-upgrade>Doplatiť 3 € na Komplet →</button>' : ""}
+          ${!ok && key === "notes" ? '<button type="button" class="upsell" data-upgrade>Doplatiť 4 € na Komplet →</button>' : ""}
         </li>`;
       })
       .join("");
@@ -515,51 +542,154 @@
 
     if (!btnBasic || !btnFull) return;
 
-    if (purchase?.plan === "full") {
-      btnBasic.innerHTML = `✓ Zahrnuté v Komplete`;
+    if (purchase?.plan === "full" || purchase?.plan === "stripe-test") {
+      btnBasic.innerHTML = `✓ Zahrnuté v balíku`;
       btnBasic.className = "btn btn--lg btn--block btn-plan-owned";
       btnFull.innerHTML = `✓ Tvoj balík: Komplet (otvoriť prístup)`;
       btnFull.className = "btn btn--lg btn--block btn--yellow";
       if (handPlan) handPlan.textContent = "Máš odomknuté všetky materiály! 🎉";
     } else if (purchase?.plan === "basic") {
-      btnBasic.innerHTML = `✓ Tvoj balík: Doučovanie (7 €)`;
+      btnBasic.innerHTML = `✓ Tvoj balík: Doučovanie (8 €)`;
       btnBasic.className = "btn btn--lg btn--block btn-plan-owned";
-      btnFull.innerHTML = `Doplatiť 3&nbsp;€ na Komplet <svg class="ico"><use href="#i-arrow"/></svg>`;
+      btnFull.innerHTML = `Doplatiť 4&nbsp;€ na Komplet <svg class="ico"><use href="#i-arrow"/></svg>`;
       btnFull.className = "btn btn--lg btn--block btn--yellow";
-      if (handPlan) handPlan.textContent = "Doplať už len 3 € a máš aj materiály!";
+      if (handPlan) handPlan.textContent = "Doplať už len 4 € a máš aj materiály!";
     } else {
-      btnBasic.innerHTML = `Vybrať za 7&nbsp;€ <svg class="ico"><use href="#i-arrow"/></svg>`;
+      btnBasic.innerHTML = `Vybrať za 8&nbsp;€ <svg class="ico"><use href="#i-arrow"/></svg>`;
       btnBasic.className = "btn btn--ghost btn--lg btn--block";
-      btnFull.innerHTML = `Vybrať za 10&nbsp;€ <svg class="ico"><use href="#i-arrow"/></svg>`;
+      btnFull.innerHTML = `Vybrať za 12&nbsp;€ <svg class="ico"><use href="#i-arrow"/></svg>`;
       btnFull.className = "btn btn--yellow btn--lg btn--block";
-      if (handPlan) handPlan.textContent = "len o 3 € viac a máš aj všetky materiály!";
+      if (handPlan) handPlan.textContent = "len o 4 € viac a máš aj všetky materiály!";
     }
   }
 
-  /* ---------- Kopírovanie linku ---------- */
-  $("#copyLink").addEventListener("click", async () => {
-    const btn = $("#copyLink");
-    const link = currentInvite;
-    try {
-      await navigator.clipboard.writeText(link);
-    } catch {
-      const ta = document.createElement("textarea");
-      ta.value = link;
-      ta.style.position = "fixed";
-      ta.style.opacity = "0";
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      ta.remove();
+  /* ---------- Kopírovanie kódu objednávky ---------- */
+  const copyOrderBtn = $("#copyOrderBtn");
+  if (copyOrderBtn) {
+    copyOrderBtn.addEventListener("click", async () => {
+      const code = $("#tOrder").textContent;
+      try {
+        await navigator.clipboard.writeText(code);
+      } catch {
+        const ta = document.createElement("textarea");
+        ta.value = code;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+      }
+      copyOrderBtn.classList.add("is-copied");
+      $("span", copyOrderBtn).textContent = "Skopírované!";
+      toast("Číslo objednávky je skopírované do schránky ✓");
+      setTimeout(() => {
+        copyOrderBtn.classList.remove("is-copied");
+        $("span", copyOrderBtn).textContent = "Kopírovať kód";
+      }, 2000);
+    });
+  }
+
+  /* ---------- Stripe 1 € skúšobná platba ---------- */
+  async function executeStripeTestPurchase(providerNote = "Stripe Test") {
+    busy = true;
+    showStep("processing");
+    const txt = $("#processingText");
+
+    const messages = [
+      "Pripájame sa na Stripe bránu (1,00 €)…",
+      "Overujeme skúšobnú platbu…",
+      "Zaevidovávame objednávku…",
+    ];
+
+    for (const msg of messages) {
+      txt.classList.remove("is-swap");
+      void txt.offsetWidth;
+      txt.textContent = msg;
+      txt.classList.add("is-swap");
+      await wait(850);
     }
-    btn.classList.add("is-copied");
-    $("span", btn).textContent = "Skopírované!";
-    toast("Link na Discord je skopírovaný ✓");
-    setTimeout(() => {
-      btn.classList.remove("is-copied");
-      $("span", btn).textContent = "Kopírovať";
-    }, 2000);
-  });
+
+    const purchase = {
+      plan: "stripe-test",
+      order: "PM-STRIPE-" + Math.floor(100000 + Math.random() * 900000),
+      email: fields.email.value.trim() || "stripe-student@example.sk",
+      paidAt: new Date().toISOString(),
+      upgraded: false,
+      pricePaid: 1,
+      totalPaid: 1,
+      provider: providerNote,
+    };
+
+    storage.set(purchase);
+    busy = false;
+    renderSuccess(purchase, true);
+    showStep("success");
+    $("#joinBtn")?.focus({ preventScroll: true });
+
+    updateNav();
+    updatePageForUser();
+
+    if (!reducedMotion) confetti();
+    toast("Stripe test platba 1,00 € prebehla úspešne! 🎉");
+  }
+
+  const btnStripeTest = $("#btnStripeTest");
+  if (btnStripeTest) {
+    btnStripeTest.addEventListener("click", () => {
+      const savedLink = localStorage.getItem("piatkova-matika-stripe-link");
+      const currentLink = savedLink || CONFIG.stripe.paymentLink;
+
+      // Ak má používateľ uložený vlastný reálny Stripe link:
+      if (savedLink && savedLink.startsWith("http")) {
+        window.location.href = savedLink;
+        return;
+      }
+
+      // Dialóg pre zadanie vlastného Stripe Payment Linku alebo okamžité demo testu:
+      const answer = prompt(
+        "Stripe skúšobná platba (1,00 €):\nAk už máš vygenerovaný Stripe Payment Link (z dashboard.stripe.com/payment-links), vlož ho sem a presmerujeme ťa na reálnu platbu.\n\nAk chceš otestovať úspešné dokončenie platby priamo na webe, nechaj prázdne a klikni OK:",
+        currentLink && !currentLink.includes("test_1eur") ? currentLink : ""
+      );
+
+      if (answer && answer.trim().startsWith("http")) {
+        const clean = answer.trim();
+        localStorage.setItem("piatkova-matika-stripe-link", clean);
+        CONFIG.stripe.paymentLink = clean;
+        window.location.href = clean;
+      } else if (answer !== null) {
+        // Simulácia Stripe úspechu s 1 €
+        executeStripeTestPurchase("Stripe (Test simulácia)");
+      }
+    });
+  }
+
+  /* ---------- Kopírovanie linku (záloha) ---------- */
+  const copyLinkBtn = $("#copyLink");
+  if (copyLinkBtn) {
+    copyLinkBtn.addEventListener("click", async () => {
+      const link = currentInvite;
+      try {
+        await navigator.clipboard.writeText(link);
+      } catch {
+        const ta = document.createElement("textarea");
+        ta.value = link;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+      }
+      copyLinkBtn.classList.add("is-copied");
+      $("span", copyLinkBtn).textContent = "Skopírované!";
+      toast("Link na Discord je skopírovaný ✓");
+      setTimeout(() => {
+        copyLinkBtn.classList.remove("is-copied");
+        $("span", copyLinkBtn).textContent = "Kopírovať";
+      }, 2000);
+    });
+  }
 
   /* ---------- Môj prístup (nav) ---------- */
   const navAccess = $("#navAccess");
@@ -607,8 +737,32 @@
   }
 
   // Inicializácia
-  const saved = storage.get();
-  setPlan(saved?.plan || "full", false);
-  updateNav();
-  updatePageForUser();
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get("paid") === "stripe" || urlParams.get("stripe") === "success") {
+    const purchase = {
+      plan: "stripe-test",
+      order: "PM-STRIPE-" + Math.floor(100000 + Math.random() * 900000),
+      email: urlParams.get("email") || "stripe-student@example.sk",
+      paidAt: new Date().toISOString(),
+      upgraded: false,
+      pricePaid: 1,
+      totalPaid: 1,
+      provider: "Stripe",
+    };
+    storage.set(purchase);
+    updateNav();
+    updatePageForUser();
+    renderSuccess(purchase, true);
+    openModal("success");
+    if (!reducedMotion) confetti();
+    toast("Platba 1,00 € cez Stripe bola úspešná! Vitaj! 🎉");
+    try {
+      history.replaceState(null, "", window.location.pathname);
+    } catch { /* ignore */ }
+  } else {
+    const saved = storage.get();
+    setPlan(saved?.plan || "full", false);
+    updateNav();
+    updatePageForUser();
+  }
 })();
