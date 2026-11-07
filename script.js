@@ -14,8 +14,10 @@
     stripe: {
       enabled: true,
       testPrice: 1,
-      paymentLink: "https://buy.stripe.com/test_1eur_piatkovamatika",
-      discordDm: "https://discord.gg/YpF3u7Y2eU",
+      paymentLink: "https://buy.stripe.com/8x2bJ177tfnT2Cs4jW5AQ00",
+      dmJanullaa: "https://discord.com/users/1546895920887758961",
+      dmDav1is: "https://discord.com/users/691015280016490497",
+      serverInvite: "https://discord.gg/YpF3u7Y2eU",
     },
     plans: {
       basic: {
@@ -162,7 +164,7 @@
     modal.scrollTop = 0;
     dialog.scrollTop = 0;
     setTimeout(() => {
-      const target = step === "pay" ? fields.email : $(`[data-step="${step}"] .invite__join`, modal);
+      const target = step === "pay" ? fields.email : ($("#btnDmJanullaa", modal) || $("#copyOrderBtn", modal));
       target && target.focus({ preventScroll: true });
     }, 60);
   }
@@ -467,7 +469,7 @@
 
     renderSuccess(purchase, true);
     showStep("success");
-    $("#joinBtn")?.focus({ preventScroll: true });
+    ($("#btnDmJanullaa") || $("#copyOrderBtn") || modal).focus({ preventScroll: true });
 
     updateNav();
     updatePageForUser();
@@ -504,8 +506,10 @@
     if (orderCodeCopy) orderCodeCopy.textContent = orderId;
     $("#tAccessLabel").textContent = plan.name;
 
-    const joinBtn = $("#joinBtn");
-    if (joinBtn) joinBtn.href = CONFIG.stripe.discordDm;
+    const btnDmJanullaa = $("#btnDmJanullaa");
+    if (btnDmJanullaa) btnDmJanullaa.href = CONFIG.stripe.dmJanullaa;
+    const btnDmDav1is = $("#btnDmDav1is");
+    if (btnDmDav1is) btnDmDav1is.href = CONFIG.stripe.dmDav1is;
 
     const items = [
       ["tutoring", "Piatkové doučovanie"],
@@ -625,7 +629,7 @@
     busy = false;
     renderSuccess(purchase, true);
     showStep("success");
-    $("#joinBtn")?.focus({ preventScroll: true });
+    ($("#btnDmJanullaa") || $("#copyOrderBtn") || modal).focus({ preventScroll: true });
 
     updateNav();
     updatePageForUser();
@@ -637,30 +641,13 @@
   const btnStripeTest = $("#btnStripeTest");
   if (btnStripeTest) {
     btnStripeTest.addEventListener("click", () => {
-      const savedLink = localStorage.getItem("piatkova-matika-stripe-link");
-      const currentLink = savedLink || CONFIG.stripe.paymentLink;
-
-      // Ak má používateľ uložený vlastný reálny Stripe link:
-      if (savedLink && savedLink.startsWith("http")) {
-        window.location.href = savedLink;
-        return;
+      const email = fields.email ? fields.email.value.trim() : "";
+      let targetUrl = CONFIG.stripe.paymentLink;
+      if (email && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        const separator = targetUrl.includes("?") ? "&" : "?";
+        targetUrl = `${targetUrl}${separator}prefilled_email=${encodeURIComponent(email)}`;
       }
-
-      // Dialóg pre zadanie vlastného Stripe Payment Linku alebo okamžité demo testu:
-      const answer = prompt(
-        "Stripe skúšobná platba (1,00 €):\nAk už máš vygenerovaný Stripe Payment Link (z dashboard.stripe.com/payment-links), vlož ho sem a presmerujeme ťa na reálnu platbu.\n\nAk chceš otestovať úspešné dokončenie platby priamo na webe, nechaj prázdne a klikni OK:",
-        currentLink && !currentLink.includes("test_1eur") ? currentLink : ""
-      );
-
-      if (answer && answer.trim().startsWith("http")) {
-        const clean = answer.trim();
-        localStorage.setItem("piatkova-matika-stripe-link", clean);
-        CONFIG.stripe.paymentLink = clean;
-        window.location.href = clean;
-      } else if (answer !== null) {
-        // Simulácia Stripe úspechu s 1 €
-        executeStripeTestPurchase("Stripe (Test simulácia)");
-      }
+      btnStripeTest.href = targetUrl;
     });
   }
 
