@@ -9,20 +9,7 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------- Najbližší piatok ---------- */
-  function nextFridayLabel() {
-    const now = new Date();
-    const diff = (5 - now.getDay() + 7) % 7;
-    const fri = new Date(now);
-    fri.setDate(now.getDate() + diff);
-    const dm = new Intl.DateTimeFormat("sk-SK", { day: "numeric", month: "long" }).format(fri);
-    if (diff === 0) return `dnes, ${dm}`;
-    if (diff === 1) return `zajtra, ${dm}`;
-    return `piatok ${dm}`;
-  }
-  const nextFridayEl = $("#nextFriday");
-  if (nextFridayEl) nextFridayEl.textContent = nextFridayLabel();
-
+  /* ---------- Aktuálny rok v pätičke ---------- */
   const yearEl = $("#year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
