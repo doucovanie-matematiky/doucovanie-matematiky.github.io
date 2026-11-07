@@ -696,6 +696,13 @@ input { font: inherit; }
   z-index: 1;
 }
 
+.role-badge {
+  font-size: 0.74em;
+  opacity: 0.88;
+  margin-left: 3px;
+  font-weight: 600;
+}
+
 .step-card__ico--discord {
   background: #eef0fd;
   color: var(--discord);
