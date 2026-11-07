@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Piatková matika — doučovanie matematiky každý piatok</title>
-  <meta name="description" content="Piatkové online doučovanie matematiky. Doučovanie za 8 € alebo Komplet s poznámkami a záznamami za 12 €. Prístup cez DM správy." />
+  <meta name="description" content="Piatkové online doučovanie matematiky. Doučovanie za 8 € alebo Komplet s poznámkami a záznamami za 12 €. Kontakt a prístup cez Discord DM." />
   <meta name="keywords" content="doučovanie matematiky, matematika online, piatková matika, doučovanie matematika discord, príprava na maturitu matematika, doučovanie pre stredoškolákov" />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Piatková matika" />
@@ -13,18 +13,18 @@
   <!-- Open Graph / Facebook / Discord link preview -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Piatková matika — Doučovanie matematiky každý piatok" />
-  <meta property="og:description" content="Piatkové online doučovanie matematiky. Prístup cez DM za 8 € alebo Komplet so záznamami za 12 €." />
+  <meta property="og:description" content="Piatkové online doučovanie matematiky. Doučovanie za 8 € alebo Komplet so záznamami za 12 €. Kontakt cez Discord DM." />
   <meta property="og:locale" content="sk_SK" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Piatková matika — Doučovanie matematiky každý piatok" />
-  <meta name="twitter:description" content="Piatkové online doučovanie matematiky. Prístup cez správy (DM)." />
+  <meta name="twitter:description" content="Piatkové online doučovanie matematiky. Kontakt a prístup cez Discord DM." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%234f46e5'/><text x='50' y='72' font-size='64' text-anchor='middle' fill='white' font-family='Georgia'>π</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=2.3" />
+  <link rel="stylesheet" href="styles.css?v=3.0" />
 </head>
 <body>
 
@@ -45,12 +45,6 @@
     <symbol id="i-discord" viewBox="0 0 24 24"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></symbol>
   </svg>
 
-  <!-- Demo pruh -->
-  <div class="demobar" role="note">
-    <span class="demobar__tag">DEMO</span>
-    Platby sú len simulované — nič sa nestrhne. Vyskúšaj si proces alebo otestuj Stripe skúšobnú platbu za 1 €.
-  </div>
-
   <!-- Navigácia -->
   <header class="nav" id="nav">
     <div class="container nav__inner">
@@ -62,12 +56,10 @@
         <a href="#ako">Ako to funguje</a>
         <a href="#cennik">Cenník</a>
         <a href="#faq">Otázky</a>
+        <a href="#kontakt">Kontakt</a>
       </nav>
       <div class="nav__actions">
-        <button class="btn btn--sm btn--discord-soft" id="navAccess" hidden>
-          <svg class="ico"><use href="#i-discord"/></svg> Môj prístup
-        </button>
-        <a href="#cennik" class="btn btn--sm btn--primary" id="navCta">Získať prístup</a>
+        <a href="#kontakt" class="btn btn--sm btn--primary" id="navCta">Napísať do DM</a>
       </div>
     </div>
   </header>
@@ -99,21 +91,21 @@
           </h1>
 
           <p class="hero__lead reveal">
-            Piatkové online doučovanie matematiky. Vyber si balík, zaplať
-            a&nbsp;prístup na&nbsp;doučovanie ti pošleme <strong>priamo do správy (DM)</strong>.
+            Piatkové online doučovanie matematiky pre stredoškolákov na Discorde.
+            Vyber si balík a&nbsp;napíš nám priamo do správy (DM).
           </p>
 
           <div class="hero__ctas reveal">
             <a href="#cennik" class="btn btn--primary btn--lg">
-              Vybrať balík <svg class="ico"><use href="#i-arrow"/></svg>
+              Pozrieť cenník <svg class="ico"><use href="#i-arrow"/></svg>
             </a>
-            <a href="#ako" class="btn btn--ghost btn--lg">Ako to funguje</a>
+            <a href="#kontakt" class="btn btn--ghost btn--lg">Napísať do DM</a>
           </div>
 
           <ul class="hero__facts reveal">
             <li><b>8&nbsp;€</b><span>doučovanie (jednorazovo)</span></li>
-            <li><b>12&nbsp;€</b><span>komplet s materiálmi (jednorazovo)</span></li>
-            <li><b><svg class="ico ico--discord"><use href="#i-discord"/></svg> DM správa</b><span>prístup priamo do DM</span></li>
+            <li><b>12&nbsp;€</b><span>komplet s materiálmi</span></li>
+            <li><b><svg class="ico ico--discord"><use href="#i-discord"/></svg> Discord</b><span>doučovanie každý piatok</span></li>
           </ul>
         </div>
 
@@ -184,7 +176,7 @@
       <div class="container">
         <header class="section__head reveal">
           <p class="eyebrow">Ako to funguje</p>
-          <h2>Tri kroky a&nbsp;si na&nbsp;doučovaní</h2>
+          <h2>Tri jednoduché kroky</h2>
         </header>
 
         <ol class="steps">
@@ -192,19 +184,19 @@
             <span class="step-card__num">1</span>
             <span class="step-card__ico"><svg class="ico"><use href="#i-pointer"/></svg></span>
             <h3>Vyber si balík</h3>
-            <p>Len piatkové doučovanie za <b>8&nbsp;€</b>, alebo Komplet s&nbsp;poznámkami a&nbsp;záznamami za <b>12&nbsp;€</b>.</p>
+            <p>Piatkové doučovanie za <b>8&nbsp;€</b>, alebo Komplet s&nbsp;poznámkami a&nbsp;záznamami za <b>12&nbsp;€</b>.</p>
           </li>
           <li class="step-card reveal">
             <span class="step-card__num">2</span>
-            <span class="step-card__ico"><svg class="ico"><use href="#i-card"/></svg></span>
-            <h3>Zaplať online</h3>
-            <p>Rýchla a bezpečná platba (karta, Stripe). Celé to trvá len pár sekúnd.</p>
+            <span class="step-card__ico step-card__ico--discord"><svg class="ico"><use href="#i-discord"/></svg></span>
+            <h3>Napíš nám do DM</h3>
+            <p>Napíš na Discorde lektorovi <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="link-user"><b>janullaa</b></a> alebo <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="link-user"><b>D4v1iS</b></a>, o ktorý balík máš záujem.</p>
           </li>
           <li class="step-card reveal">
             <span class="step-card__num">3</span>
-            <span class="step-card__ico step-card__ico--discord"><svg class="ico"><use href="#i-discord"/></svg></span>
-            <h3>Prístup cez správy (DM)</h3>
-            <p>Po zaplatení ti pošleme pozvánku a&nbsp;materiály priamo do správy na Discorde – stačí napísať lektorovi <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="link-user"><b>janullaa</b></a> alebo <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="link-user"><b>D4v1iS</b></a>.</p>
+            <span class="step-card__ico"><svg class="ico"><use href="#i-check"/></svg></span>
+            <h3>Získaj prístup</h3>
+            <p>Dohodneme podrobnosti v správe a&nbsp;obratom získaš pozvánku na server aj prístup k materiálom.</p>
           </li>
         </ol>
       </div>
@@ -216,7 +208,7 @@
         <header class="section__head reveal">
           <p class="eyebrow">Cenník</p>
           <h2>Vyber si, čo potrebuješ</h2>
-          <p class="section__sub">Vyber si balík podľa toho, čo potrebuješ. Prístup na doučovanie a&nbsp;materiály ti pošleme priamo do správy (DM).</p>
+          <p class="section__sub">Obe možnosti ti otvoria cestu na náš Discord server. Rozdiel je v&nbsp;tom, ku čomu budeš mať prístup.</p>
         </header>
 
         <div class="pricing">
@@ -235,13 +227,21 @@
             </div>
             <ul class="plan__list">
               <li class="yes"><svg class="ico"><use href="#i-check"/></svg> Prístup na piatkové doučovanie</li>
-              <li class="yes"><svg class="ico"><use href="#i-check"/></svg> Zaslanie prístupu priamo do správy (DM)</li>
+              <li class="yes"><svg class="ico"><use href="#i-check"/></svg> Riešenie príkladov a otázok naživo</li>
               <li class="no"><svg class="ico"><use href="#i-x"/></svg> Poznámky z doučovaní</li>
               <li class="no"><svg class="ico"><use href="#i-x"/></svg> Záznamy z predošlých doučovaní</li>
             </ul>
-            <button class="btn btn--ghost btn--lg btn--block" data-buy="basic" id="btnPlanBasic">
-              Vybrať za 8&nbsp;€ <svg class="ico"><use href="#i-arrow"/></svg>
-            </button>
+            <div class="plan__dm-wrap">
+              <p class="plan__dm-title">Objednať cez DM na Discorde:</p>
+              <div class="plan__dm-btns">
+                <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="btn btn--sm btn--discord">
+                  <svg class="ico"><use href="#i-discord"/></svg> janullaa ↗
+                </a>
+                <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="btn btn--sm btn--discord">
+                  <svg class="ico"><use href="#i-discord"/></svg> D4v1iS ↗
+                </a>
+              </div>
+            </div>
           </article>
 
           <!-- Komplet -->
@@ -260,22 +260,30 @@
             </div>
             <ul class="plan__list">
               <li class="yes"><svg class="ico"><use href="#i-check"/></svg> Prístup na piatkové doučovanie</li>
-              <li class="yes"><svg class="ico"><use href="#i-check"/></svg> Zaslanie prístupu priamo do správy (DM)</li>
+              <li class="yes"><svg class="ico"><use href="#i-check"/></svg> Riešenie príkladov a otázok naživo</li>
               <li class="yes"><svg class="ico"><use href="#i-check"/></svg> <span><b>Poznámky</b> z doučovaní</span></li>
               <li class="yes"><svg class="ico"><use href="#i-check"/></svg> <span><b>Záznamy</b> z predošlých doučovaní</span></li>
             </ul>
-            <button class="btn btn--yellow btn--lg btn--block" data-buy="full" id="btnPlanFull">
-              Vybrať za 12&nbsp;€ <svg class="ico"><use href="#i-arrow"/></svg>
-            </button>
+            <div class="plan__dm-wrap">
+              <p class="plan__dm-title">Objednať cez DM na Discorde:</p>
+              <div class="plan__dm-btns">
+                <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="btn btn--sm btn--yellow">
+                  <svg class="ico"><use href="#i-discord"/></svg> janullaa ↗
+                </a>
+                <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="btn btn--sm btn--yellow">
+                  <svg class="ico"><use href="#i-discord"/></svg> D4v1iS ↗
+                </a>
+              </div>
+            </div>
             <p class="hand hand--plan" id="handPlanText">len o 4 € viac a máš aj všetky materiály!</p>
           </article>
         </div>
 
         <ul class="trust reveal">
-          <li><svg class="ico"><use href="#i-lock"/></svg> Bezpečná platba (aj Stripe)</li>
           <li><svg class="ico"><use href="#i-check"/></svg> <b>Jednorazová platba</b> — žiadne mesačné poplatky</li>
-          <li><svg class="ico"><use href="#i-discord"/></svg> Prístup priamo do správy (DM)</li>
+          <li><svg class="ico"><use href="#i-discord"/></svg> Osobná komunikácia v DM</li>
           <li><svg class="ico"><use href="#i-cal"/></svg> Doučovanie každý piatok</li>
+          <li><svg class="ico"><use href="#i-speaker"/></svg> Online cez Discord server</li>
         </ul>
       </div>
     </section>
@@ -294,12 +302,12 @@
             <p>Ide o <b>čisto jednorazovú platbu</b> za konkrétne piatkové doučovanie. Žiadny mesačný subscription, žiadne opakované ani skryté poplatky. Zaplatíš iba raz za to, čo si vyberieš (8&nbsp;€ alebo 12&nbsp;€).</p>
           </details>
           <details class="reveal">
-            <summary>Dá sa z 8 € doučovania neskôr prejsť na Komplet?</summary>
-            <p><b>Áno, kedykoľvek za doplatok 4&nbsp;€!</b> Ak si kúpiš základné doučovanie za 8&nbsp;€ a neskôr budeš chcieť aj poznámky a záznamy, stačí kliknúť na <i>„Môj prístup“</i> a doplatíš iba rozdiel – teda 4&nbsp;€ (opäť jednorazovo). Obratom ti do správy (DM) pošleme prístup k materiálom a záznamom.</p>
+            <summary>Ako si dohodnem doučovanie a získam prístup?</summary>
+            <p>Všetko riešime priamo a osobne cez <b>DM správy na Discorde</b>. Stačí napísať lektorovi <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="link-user"><b>janullaa</b></a> alebo <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="link-user"><b>D4v1iS</b></a>. V správe si potvrdíme podrobnosti a obratom dostaneš pozvánku na server aj prístup k materiálom.</p>
           </details>
           <details class="reveal">
-            <summary>Ako dostanem prístup na doučovanie?</summary>
-            <p>Prístup riešime priamo cez <b>DM správy</b>. Po úhrade obdržíš číslo svojej objednávky (#PM-XXXXXX). Stačí nám napísať do DM na Discorde – buď používateľovi <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="link-user"><b>janullaa</b></a> alebo <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="link-user"><b>D4v1iS</b></a> – a obratom ti pošleme pozvánku a materiály.</p>
+            <summary>Dá sa z 8 € doučovania neskôr prejsť na Komplet?</summary>
+            <p><b>Áno, kedykoľvek za doplatok 4&nbsp;€!</b> Ak si vyberieš základné doučovanie za 8&nbsp;€ a neskôr budeš chcieť aj poznámky a záznamy, stačí nám napísať do DM a doplatíš iba rozdiel – teda 4&nbsp;€.</p>
           </details>
           <details class="reveal">
             <summary>Aký je rozdiel medzi balíkmi?</summary>
@@ -314,24 +322,28 @@
             <p>Každý piatok. Všetky informácie k&nbsp;doučovaniu nájdeš priamo na Discord serveri.</p>
           </details>
           <details class="reveal">
-            <summary>Čo ak číslo objednávky stratím?</summary>
-            <p>Po zaplatení si údaje kedykoľvek znova zobrazíš cez tlačidlo <b>„Môj prístup“</b> hore v&nbsp;menu.</p>
+            <summary>Kde vás môžem kontaktovať?</summary>
+            <p>Priamo na Discorde cez DM správu lektorom <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="link-user"><b>janullaa</b></a> alebo <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="link-user"><b>D4v1iS</b></a>.</p>
           </details>
         </div>
       </div>
     </section>
 
-    <!-- Záverečná výzva -->
-    <section class="section section--cta">
+    <!-- Záverečná výzva / Kontakt -->
+    <section class="section section--cta" id="kontakt">
       <div class="container">
         <div class="cta-box reveal">
           <div>
             <h2>Piatok je bližšie, než si myslíš.</h2>
-            <p>Vyber si balík, pošli nám správu do DM (<a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="link-user-white">janullaa</a> / <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="link-user-white">D4v1iS</a>) a&nbsp;uvidíme sa na doučovaní.</p>
+            <p>Vyber si balík a&nbsp;napíš nám správu do DM na Discorde. Radi ťa uvidíme na doučovaní!</p>
           </div>
-          <div class="cta-box__btns">
-            <button class="btn btn--yellow btn--lg" data-buy="full">Komplet · 12&nbsp;€</button>
-            <button class="btn btn--white btn--lg" data-buy="basic">Doučovanie · 8&nbsp;€</button>
+          <div class="cta-box__dm-btns">
+            <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="btn btn--yellow btn--lg">
+              <svg class="ico ico--discord"><use href="#i-discord"/></svg> Napísať janullaa ↗
+            </a>
+            <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="btn btn--white btn--lg">
+              <svg class="ico ico--discord"><use href="#i-discord"/></svg> Napísať D4v1iS ↗
+            </a>
           </div>
         </div>
       </div>
@@ -344,203 +356,11 @@
         <span class="logo__mark">π</span>
         <span class="logo__text">Piatková<b>matika</b></span>
       </a>
-      <p>© <span id="year">2026</span> Piatková matika · Demo verzia stránky</p>
-      <button class="link-btn" id="resetDemo">Resetovať demo</button>
+      <p>© <span id="year">2026</span> Piatková matika · Online doučovanie matematiky</p>
+      <a href="#kontakt" class="link-btn">Kontakt na lektorov</a>
     </div>
   </footer>
 
-  <!-- ============ POKLADŇA (MODAL) ============ -->
-  <div class="modal" id="checkout" aria-hidden="true">
-    <div class="modal__backdrop" data-close></div>
-
-    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
-      <button class="modal__close" data-close aria-label="Zavrieť">
-        <svg class="ico"><use href="#i-x"/></svg>
-      </button>
-
-      <!-- KROK 1: platba -->
-      <div class="mstep" data-step="pay">
-        <div class="demo-pill"><span>DEMO</span> Platba je simulovaná — nič sa nestrhne</div>
-        <h2 id="checkoutTitle" class="mstep__title">Pokladňa</h2>
-
-        <div class="upgrade-banner" id="upgradeBanner" hidden>
-          <div class="upgrade-banner__icon">⚡</div>
-          <div>
-            <b>Doplatok na balík Komplet</b>
-            <p>Máš zaplatené Doučovanie (8&nbsp;€). Doplatíš len <b>4&nbsp;€</b> a&nbsp;získaš aj poznámky a&nbsp;záznamy.</p>
-            <p class="upgrade-banner__lock"><svg class="ico"><use href="#i-lock"/></svg> Balík je pevne nastavený na Komplet a&nbsp;nedá sa zmeniť.</p>
-          </div>
-        </div>
-
-        <div class="plan-switch" id="planSwitch" role="radiogroup" aria-label="Balík">
-          <label class="plan-opt">
-            <input type="radio" name="plan" value="basic" />
-            <span class="plan-opt__radio"></span>
-            <span class="plan-opt__txt"><b>Doučovanie</b><small>Piatkové doučovanie · jednorazovo</small></span>
-            <em>8&nbsp;€</em>
-          </label>
-          <label class="plan-opt">
-            <input type="radio" name="plan" value="full" />
-            <span class="plan-opt__radio"></span>
-            <span class="plan-opt__txt"><b>Komplet</b><small>Doučovanie + materiály · jednorazovo</small></span>
-            <em>12&nbsp;€</em>
-          </label>
-        </div>
-
-        <!-- Stripe test platba (1 €) -->
-        <div class="stripe-box" id="stripeBox">
-          <div class="stripe-box__top">
-            <span class="stripe-badge"><svg class="ico-stripe" viewBox="0 0 32 14" aria-hidden="true"><path fill="currentColor" d="M10.2 4.9c0-.6.5-.8 1.3-.8 1.1 0 2.5.3 3.6.9V1.7c-1.1-.5-2.6-.9-3.8-.9-3.3 0-5.6 1.8-5.6 4.5 0 4.1 5.6 3.5 5.6 5.3 0 .6-.5.9-1.4.9-1.3 0-2.8-.5-4.1-1.2v3.5c1.4.6 2.9.9 4.1.9 3.3 0 5.8-1.6 5.8-4.5 0-4.4-5.5-3.7-5.5-5.2z"/></svg> STRIPE CONNECT</span>
-            <span class="stripe-price">1,00&nbsp;€</span>
-          </div>
-          <p class="stripe-box__desc">Otestuj reálnu platbu cez Stripe bránu za symbolické 1&nbsp;€.</p>
-          <a href="https://buy.stripe.com/8x2bJ177tfnT2Cs4jW5AQ00" class="btn btn--stripe" id="btnStripeTest" target="_blank" rel="noopener">
-            <svg class="ico"><use href="#i-card"/></svg>
-            <span>Zaplatiť 1,00 € cez Stripe ↗</span>
-          </a>
-        </div>
-
-        <div class="divider-text" id="orDivider"><span>alebo demo simulácia</span></div>
-
-        <form id="payForm" novalidate>
-          <div class="field">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" placeholder="ty@email.sk" autocomplete="email" />
-            <small class="field__err"></small>
-          </div>
-
-          <div class="field">
-            <label for="cardNumber">Číslo karty</label>
-            <div class="field__wrap">
-              <input type="text" id="cardNumber" inputmode="numeric" autocomplete="cc-number" placeholder="1234 1234 1234 1234" maxlength="19" />
-              <span class="card-brand" id="cardBrand" aria-hidden="true"></span>
-            </div>
-            <small class="field__err"></small>
-          </div>
-
-          <div class="field-row">
-            <div class="field">
-              <label for="cardExp">Platnosť</label>
-              <input type="text" id="cardExp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/RR" maxlength="5" />
-              <small class="field__err"></small>
-            </div>
-            <div class="field">
-              <label for="cardCvc">CVC</label>
-              <input type="text" id="cardCvc" inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="3" />
-              <small class="field__err"></small>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="cardName">Meno na karte</label>
-            <input type="text" id="cardName" autocomplete="cc-name" placeholder="Meno Priezvisko" />
-            <small class="field__err"></small>
-          </div>
-
-          <button type="button" class="link-btn link-btn--fill" id="fillDemo">⚡ Vyplniť testovacie údaje</button>
-
-          <div class="summary">
-            <div class="summary__row"><span id="sumPlan">Balík Komplet</span><span id="sumPrice">12,00 €</span></div>
-            <div class="summary__row" id="sumPrevRow" hidden><span>Už zaplatené</span><span id="sumPrevPrice">−8,00 €</span></div>
-            <div class="summary__row summary__row--total"><span id="sumTotalLabel">Spolu</span><span id="sumTotal">12,00 €</span></div>
-            <p class="summary__note"><svg class="ico"><use href="#i-check"/></svg> Jednorazová platba · žiadne predplatné</p>
-          </div>
-
-          <button type="submit" class="btn btn--primary btn--lg btn--block" id="payBtn">
-            <svg class="ico"><use href="#i-lock"/></svg>
-            <span id="payLabel">Zaplatiť 12,00 €</span>
-          </button>
-          <p class="secure">V ostrej verzii prebehne platba cez zabezpečenú platobnú bránu.</p>
-        </form>
-      </div>
-
-      <!-- KROK 2: spracovanie -->
-      <div class="mstep mstep--processing" data-step="processing" hidden>
-        <div class="loader" aria-hidden="true"><span>π</span></div>
-        <p class="processing__text" id="processingText" aria-live="polite">Spájame sa s bankou…</p>
-        <div class="processing__bar"><span></span></div>
-      </div>
-
-      <!-- KROK 3: úspech + link -->
-      <div class="mstep mstep--success" data-step="success" hidden>
-        <div class="success-check" aria-hidden="true">
-          <svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg>
-        </div>
-        <h2 class="mstep__title" id="successTitle">Platba prebehla úspešne!</h2>
-        <p class="mstep__sub">Prístup na doučovanie a materiály ti pošleme priamo do správy (DM).</p>
-
-        <div class="ticket">
-          <div class="ticket__top">
-            <div><small>Balík</small><b id="tPlan">Komplet</b></div>
-            <div><small>Zaplatené</small><b id="tAmount">12,00 €</b></div>
-            <div><small>Objednávka</small><b id="tOrder">#PM-000000</b></div>
-          </div>
-
-          <div class="ticket__invite">
-            <p class="invite__label">Prístup cez správy (DM)</p>
-            <div class="invite">
-              <span class="invite__ico">π</span>
-              <div class="invite__info">
-                <b>Piatková matika</b>
-                <span><i class="invite__dot"></i> Prístup: <strong id="tAccessLabel">Komplet</strong></span>
-                <span class="invite__dm-hint">Pošli kód objednávky do DM:</span>
-              </div>
-            </div>
-
-            <div class="link-row">
-              <svg class="ico"><use href="#i-hash"/></svg>
-              <code id="orderCodeCopy">#PM-000000</code>
-              <button type="button" class="link-row__copy" id="copyOrderBtn">
-                <svg class="ico"><use href="#i-copy"/></svg><span>Kopírovať kód</span>
-              </button>
-            </div>
-
-            <div class="dm-contacts">
-              <span class="dm-contacts__title">Napíš do DM jednému z nás na Discorde:</span>
-              <div class="dm-contacts__grid">
-                <a class="dm-contact-card" id="btnDmJanullaa" href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener">
-                  <svg class="ico ico--discord"><use href="#i-discord"/></svg>
-                  <span class="dm-contact-card__name">janullaa</span>
-                  <span class="dm-contact-card__action">Napísať DM ↗</span>
-                </a>
-                <a class="dm-contact-card" id="btnDmDav1is" href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener">
-                  <svg class="ico ico--discord"><use href="#i-discord"/></svg>
-                  <span class="dm-contact-card__name">D4v1iS</span>
-                  <span class="dm-contact-card__action">Napísať DM ↗</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <ul class="ticket__access" id="tAccess"></ul>
-
-          <div class="ticket__upgrade-box" id="tUpgradeBox" hidden>
-            <div class="ticket__upgrade-text">
-              <span class="ticket__upgrade-badge">Zvýhodnený prechod</span>
-              <b>Chceš aj materiály a záznamy?</b>
-              <p>Môžeš kedykoľvek prejsť na <b>Komplet</b> len za <b>jednorazový doplatok 4&nbsp;€</b>.</p>
-            </div>
-            <button type="button" class="btn btn--sm btn--yellow" id="btnTicketUpgrade" data-upgrade>
-              Doplatiť 4&nbsp;€ na Komplet <svg class="ico"><use href="#i-arrow"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <ol class="next-steps">
-          <li><span>1</span><p>Skopíruj si číslo objednávky tlačidlom <b>Kopírovať kód</b>.</p></li>
-          <li><span>2</span><p>Klikni na <a href="https://discord.com/users/1546895920887758961" target="_blank" rel="noopener" class="link-user"><b>janullaa</b></a> alebo <a href="https://discord.com/users/691015280016490497" target="_blank" rel="noopener" class="link-user"><b>D4v1iS</b></a> a pošli kód do správy (DM).</p></li>
-          <li><span>3</span><p>Obratom ti pošleme pozvánku a odomkneme materiály! 🎉</p></li>
-        </ol>
-
-        <p class="mstep__hint">Svoju objednávku a DM kontakt si kedykoľvek znova zobrazíš cez <b>„Môj prístup“</b> v menu.</p>
-        <button type="button" class="btn btn--ghost btn--block" data-close>Späť na stránku</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <div class="confetti" id="confetti" aria-hidden="true"></div>
-
-  <script src="script.js?v=2.3"></script>
+  <script src="script.js?v=3.0"></script>
 </body>
 </html>
